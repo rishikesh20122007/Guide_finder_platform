@@ -1,34 +1,35 @@
-// Import packages
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const bodyParser = require("body-parser");
-require("dotenv").config();
 
-// Initialize app
 const app = express();
 
-// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Test Route
+// Import Guide Model
+const Guide = require("./models/Guide");
+
+// Home route
 app.get("/", (req, res) => {
-    res.send("Guide Finder Platform Server Running");
+  res.send("Guide Finder Backend Running");
 });
 
-// Database Connection
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+// Guides Route
+app.get("/guides", async (req, res) => {
+  try {
+    const guides = await Guide.find();
+    res.json(guides);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/guidefinder")
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 
-// Port
-const PORT = process.env.PORT || 5000;
-
-// Start Server
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
 });
