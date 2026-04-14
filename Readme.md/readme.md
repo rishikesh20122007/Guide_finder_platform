@@ -1,0 +1,1 @@
+This the the documentation of my first project for the b tech degree for the design thinking and idea lab.
