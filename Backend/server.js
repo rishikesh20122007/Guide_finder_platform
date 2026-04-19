@@ -25,6 +25,17 @@ app.get("/guides", async (req, res) => {
   }
 });
 
+// ✅ ADD THIS HERE 👇
+app.post("/guides", async (req, res) => {
+  try {
+    const guide = new Guide(req.body);
+    const savedGuide = await guide.save();
+    res.status(201).json(savedGuide);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 // MongoDB Connection
 mongoose.connect("mongodb://127.0.0.1:27017/guidefinder")
 .then(() => console.log("MongoDB Connected"))

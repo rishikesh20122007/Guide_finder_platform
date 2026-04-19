@@ -1,14 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide Finder Platform</title>
-</head>
-<body>
-    <h1>Guide Finder Platform</h1>
-    <p>Welcome to the Guide Finder Platform!</p>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Finder Platform</title>
 
-    <p>This will be the best platform for connecting guide and tourist in one place where you will going to find all the required and possible feature...</p>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .tabs {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      border-radius: 20px;
+      background: #ddd;
+      cursor: pointer;
+    }
+
+    .active {
+      background: #007bff !important;
+      color: white;
+    }
+
+    .tabContent {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .phase {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .phase div {
+      flex: 1;
+      min-width: 150px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #f8f9fa;
+      text-align: center;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Guide Finder Platform</h1>
+
+<!-- 🔷 TABS -->
+<div class="tabs">
+  <button onclick="showTab('tourist', event)" class="active">Tourist</button>
+  <button onclick="showTab('guide', event)">Guide</button>
+  <button onclick="showTab('manager', event)">Manager</button>
+</div>
+
+<!-- 🔷 TOURIST -->
+<div id="tourist" class="tabContent">
+
+  <h2>Tourist Journey</h2>
+
+  <h3>Phases</h3>
+  <div class="phase">
+    <div>🔍 Research<br>Destination, Budget</div>
+    <div>📋 Shortlisting<br>Compare options</div>
+    <div>💳 Booking<br>Hotel, Guide</div>
+    <div>🚶 On Day<br>Meet guide</div>
+  </div>
+
+  <h3>Touchpoints</h3>
+  <p>🌐 Google • 📱 App • 🏨 Hotels • 🧭 Guides</p>
+
+  <h3>Emotions</h3>
+  <p>😕 → 😟 → 😌 → 😄</p>
+
+  <!-- 🔥 DYNAMIC DATA -->
+  <h3>Available Guides</h3>
+  <ul id="guideList"></ul>
+
+</div>
+
+<!-- 🔷 GUIDE -->
+<div id="guide" class="tabContent" style="display:none;">
+  <h2>Guide Journey</h2>
+
+  <h3>Phases</h3>
+  <div class="phase">
+    <div>📝 Register</div>
+    <div>📅 Availability</div>
+    <div>📩 Booking</div>
+    <div>🎤 On Day</div>
+  </div>
+
+  <h3>Touchpoints</h3>
+  <p>📱 Dashboard • 💬 Chat • 📊 Reviews</p>
+
+  <h3>Emotions</h3>
+  <p>😐 → 🙂 → 😃 → 😄</p>
+</div>
+
+<!-- 🔷 MANAGER -->
+<div id="manager" class="tabContent" style="display:none;">
+  <h2>Platform Manager</h2>
+
+  <h3>Phases</h3>
+  <div class="phase">
+    <div>⚙ Setup</div>
+    <div>🔎 Matching</div>
+    <div>💰 Booking</div>
+    <div>📈 Monitor</div>
+  </div>
+
+  <h3>Touchpoints</h3>
+  <p>📊 Dashboard • 💳 Payment • ⭐ Reviews</p>
+
+  <h3>Emotions</h3>
+  <p>😐 → 🙂 → 😟 → 😄</p>
+</div>
+
+<!-- 🔷 SCRIPT -->
+<script>
+
+function showTab(tab, event) {
+  const tabs = ["tourist", "guide", "manager"];
+
+  tabs.forEach(t => {
+    document.getElementById(t).style.display = "none";
+  });
+
+  document.getElementById(tab).style.display = "block";
+
+  document.querySelectorAll(".tabs button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  event.target.classList.add("active");
+
+  if (tab === "tourist") {
+    loadGuides();
+  }
+}
+
+// 🔥 LOAD DATA FROM BACKEND
+function loadGuides() {
+  fetch("http://localhost:5000/guides")
+    .then(res => res.json())
+    .then(data => {
+      const list = document.getElementById("guideList");
+      list.innerHTML = "";
+
+      data.forEach(g => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <b>${g.name}</b> - ${g.location} - ${g.language} - ₹${g.price}
+        `;
+        list.appendChild(li);
+      });
+    });
+}
+
+// Load initially
+loadGuides();
+
+</script>
+
 </body>
 </html>
