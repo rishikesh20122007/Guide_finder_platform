@@ -1,94 +1,134 @@
- 
-body {
-     background-color: #f5f7fa;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-}
-/* HERO */
- .hero {
-    background: linear-gradient(120deg, #007bff, #00c6ff);
-    color: rgb(255, 255, 255);
-    padding: 80px 20px;
-    text-align: center;
-}
-/* CARDS */
-    .card {
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-
-.tour-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-top: 20px;
-}
-
-.tour-card {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  position: relative;
+/* ICON STYLE - REAL APP LOOK */
+.contact-dropdown a i {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
   transition: 0.3s;
 }
 
-.tour-card img {
-  width: 100%;
-  height: 175px;
-  border-radius: 10px;
-  object-fit: cover;
+/* Official colors */
+.fa-phone { background: #28a745; }
+.fa-whatsapp { background: #25D366; }
+.fa-envelope { background: #EA4335; }
+.fa-instagram { background: #E1306C; }
+.fa-facebook { background: #1877F2; }
+
+/* Hover effect */
+.contact-dropdown a:hover i {
+  transform: scale(1.2);
+}
+.contact-dropdown a {
+  position: relative;
 }
 
-.tour-card:hover {
-  transform: scale(1.25);
-}
-
-/* Hover price */
-.tour-info {
+.contact-dropdown a::after {
+  content: attr(data-name);
   position: absolute;
-  bottom: 110%;
+  bottom: -25px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgb(7, 160, 104);
+  background: black;
   color: white;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 5px;
   opacity: 0;
   transition: 0.3s;
 }
 
-.tour-card:hover .tour-info {
+.contact-dropdown a:hover::after {
   opacity: 1;
 }
+/* Remove blue underline from links */
+.contact-dropdown a {
+  text-decoration: none;
+  color: inherit;
+}
+/* remove focus outline */
+.contact-dropdown a:focus {
+  outline: none;
+}
 
-.review-card {
+/* remove blue highlight on click */
+.contact-dropdown a:active {
+  background: transparent;
+}
+.contact-dropdown a {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+}
+/* FORCE REMOVE ALL LINK LINES */
+.contact-dropdown a,
+.contact-dropdown a:link,
+.contact-dropdown a:visited,
+.contact-dropdown a:hover,
+.contact-dropdown a:active,
+.contact-dropdown a:focus {
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+/* Remove inline gap causing line */
+.contact-dropdown a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-dropdown i {
+  display: block;
+}
+.contact-dropdown {
+  text-align: center;
+}
+/* HOVER DROPDOWN ANIMATION */
+.contact-menu {
+  position: relative;
+}
+
+/* hidden by default */
+.contact-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.3s ease;
+}
+
+/* SHOW on hover */
+.contact-menu:hover .contact-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+.contact-dropdown {
+  position: absolute;
+  top: 45px;
+  right: 0;
   background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  }
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  z-index: 1000;
 
-.price{
-color:#28a745;
-font-weight:bold;
-}
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 
-/* FOOTER */
- footer {
- background: #222;
- color: white;
-padding: 20px;
-text-align: center;
-}
-#contact a {
-  transition: 0.3s;
+  /* animation start state */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.9);
+  transition: all 0.3s ease;
 }
 
-#contact a:hover {
-  transform: scale(1.3);
-}
-#contact {
-  background: linear-gradient(to right, #f8f9fa, #e3f2fd);
+.contact-menu:hover .contact-dropdown a i {
+  transform: scale(1);
 }

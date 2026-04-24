@@ -6,6 +6,10 @@ const GuideSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+<<<<<<< HEAD
+=======
+
+>>>>>>> a7c299abe72d9d85a77bb8a0295d4516d3711fea
     location: {
         type: String,
         required: true
