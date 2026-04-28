@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
   res.send("Guide Finder Backend Running");
 });
 
-// ✅ Get all guides
+// Get all guides
 app.get("/guides", async (req, res) => {
   try {
     const guides = await Guide.find();
@@ -25,7 +25,7 @@ app.get("/guides", async (req, res) => {
   }
 });
 
-// ✅ Add new guide
+//  Add new guide
 app.post("/guides", async (req, res) => {
   try {
     const guide = new Guide(req.body);
@@ -36,7 +36,7 @@ app.post("/guides", async (req, res) => {
   }
 });
 
-// ✅ Booking Schema
+//  Booking Schema
 const Booking = mongoose.model("Booking", {
   guide: String,
   user: String,
@@ -44,7 +44,7 @@ const Booking = mongoose.model("Booking", {
   time: String
 });
 
-// ✅ Booking API
+//  Booking API
 app.post("/book", async (req, res) => {
   const { guide, date, time } = req.body;
 
@@ -52,7 +52,7 @@ app.post("/book", async (req, res) => {
     const exists = await Booking.findOne({ guide, date, time });
 
     if (exists) {
-      return res.json({ message: "❌ Slot already booked!" });
+      return res.json({ message: "❌ OOps! Slot already booked!" });
     }
 
     const booking = new Booking(req.body);
@@ -63,13 +63,24 @@ app.post("/book", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+//  Get booked slots for a guide on a specific date
+app.get("/bookings/:guide/:date", async (req, res) => {
+  const { guide, date } = req.params;
 
-// ✅ MongoDB Connection
+  try {
+    const bookings = await Booking.find({ guide, date });
+    res.json(bookings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+//  MongoDB Connection
 mongoose.connect("mongodb://127.0.0.1:27017/guidefinder")
   .then(() => console.log("✅ MongoDB Connected"))
   .catch(err => console.log("❌ DB Error:", err));
 
-// ✅ Start server
+//  Start server
 app.listen(5000, () => {
   console.log("🚀 Server running on http://localhost:5000");
 });
