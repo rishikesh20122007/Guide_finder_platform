@@ -15,11 +15,7 @@ app.get("/", (req, res) => {
   res.send("Guide Finder Backend Running");
 });
 
-<<<<<<< HEAD
-// Get all guides
-=======
-// Guides Route
->>>>>>> a7c299abe72d9d85a77bb8a0295d4516d3711fea
+// ✅ Get all guides
 app.get("/guides", async (req, res) => {
   try {
     const guides = await Guide.find();
@@ -29,11 +25,7 @@ app.get("/guides", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-// Add new guide
-=======
-// ✅ ADD THIS HERE 👇
->>>>>>> a7c299abe72d9d85a77bb8a0295d4516d3711fea
+// ✅ Add new guide
 app.post("/guides", async (req, res) => {
   try {
     const guide = new Guide(req.body);
@@ -44,38 +36,40 @@ app.post("/guides", async (req, res) => {
   }
 });
 
-// MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/guidefinder")
-<<<<<<< HEAD
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
-
-// Start server
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
-=======
-.then(() => console.log("MongoDB Connected"))
-.catch(err => console.log(err));
-
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+// ✅ Booking Schema
+const Booking = mongoose.model("Booking", {
+  guide: String,
+  user: String,
+  date: String,
+  time: String
 });
 
-const Guide = require("./models/Guide");
+// ✅ Booking API
+app.post("/book", async (req, res) => {
+  const { guide, date, time } = req.body;
 
-app.get("/guides", async (req,res)=>{
+  try {
+    const exists = await Booking.findOne({ guide, date, time });
 
-try{
+    if (exists) {
+      return res.json({ message: "❌ Slot already booked!" });
+    }
 
-const guides = await Guide.find();
+    const booking = new Booking(req.body);
+    await booking.save();
 
-res.json(guides);
+    res.json({ message: "✅ Booking successful!" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
-}catch(error){
+// ✅ MongoDB Connection
+mongoose.connect("mongodb://127.0.0.1:27017/guidefinder")
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.log("❌ DB Error:", err));
 
-res.status(500).json({error:error.message})
-
-}
-
->>>>>>> a7c299abe72d9d85a77bb8a0295d4516d3711fea
+// ✅ Start server
+app.listen(5000, () => {
+  console.log("🚀 Server running on http://localhost:5000");
 });
