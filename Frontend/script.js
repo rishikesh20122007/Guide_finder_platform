@@ -135,7 +135,15 @@ guides.forEach(guide => {
                 <p>🗣 ${guide.language}</p>
                 <p>💰 ${guide.price}</p>
                 <p>⭐ ${guide.rating}</p>
-                <a href="profile.html?id=${guide.id}" class="btn btn-view">View Profile</a>
+
+                <a href="profile.html?id=${guide.id}" class="btn btn-view mb-2">
+                  View Profile
+                </a>
+
+            <button class="btn btn-success"
+              onclick="bookGuide('${guide.name}')">
+                  Book Now
+                </button>
             </div>
         </div>
     </div>
