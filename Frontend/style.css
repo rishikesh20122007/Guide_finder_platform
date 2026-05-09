@@ -1,4 +1,10 @@
 /* ICON STYLE - REAL APP LOOK */
+
+html {
+  scroll-behavior: smooth;
+}
+
+
 .contact-dropdown a i {
   width: 35px;
   height: 35px;
@@ -87,48 +93,20 @@
   display: block;
 }
 .contact-dropdown {
+  display: none;
   text-align: center;
+  justify-content: center;
+  grid-template-columns: repeat(5, 60px);
+  gap: 15px;
+  margin-top: 15px;
 }
 /* HOVER DROPDOWN ANIMATION */
-.contact-menu {
-  position: relative;
-}
 
-/* hidden by default */
 .contact-dropdown {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.9);
-  transition: all 0.3s ease;
+  display: none;
+  justify-content: center;
+  grid-template-columns: repeat(5, 60px);
+  gap: 15px;
+  margin-top: 15px;
 }
 
-/* SHOW on hover */
-.contact-menu:hover .contact-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-}
-.contact-dropdown {
-  position: absolute;
-  top: 45px;
-  right: 0;
-  background: white;
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  z-index: 1000;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-
-  /* animation start state */
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(20px) scale(0.9);
-  transition: all 0.3s ease;
-}
-
-.contact-menu:hover .contact-dropdown a i {
-  transform: scale(1);
-}
