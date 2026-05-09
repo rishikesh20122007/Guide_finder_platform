@@ -92,6 +92,9 @@ html {
 .contact-dropdown i {
   display: block;
 }
+
+/* HOVER DROPDOWN ANIMATION */
+
 .contact-dropdown {
   display: none;
   text-align: center;
@@ -100,13 +103,3 @@ html {
   gap: 15px;
   margin-top: 15px;
 }
-/* HOVER DROPDOWN ANIMATION */
-
-.contact-dropdown {
-  display: none;
-  justify-content: center;
-  grid-template-columns: repeat(5, 60px);
-  gap: 15px;
-  margin-top: 15px;
-}
-
