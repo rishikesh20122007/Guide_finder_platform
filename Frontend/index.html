@@ -178,6 +178,113 @@
         transform: translateY(-10px);
     }
 }
+
+    /* ===== TOP HEADER ===== */
+
+.top-header{
+    background:#f3f3f3;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 60px;
+}
+
+/* Character */
+.character{
+    width:180px;
+}
+
+.character img{
+    width:100%;
+}
+
+/* Center */
+.header-center{
+    text-align:center;
+    flex:1;
+}
+
+/* Title row */
+.title-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+}
+
+/* Orange circle */
+.orange-dot{
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:#ff5a00;
+}
+
+/* Plane */
+.plane{
+    font-size:70px;
+    color:#ffb300;
+}
+
+/* Welcome */
+.welcome-msg{
+    font-size:20px;
+    margin-top:15px;
+    color:#444;
+}
+
+/* Better title */
+.main-title{
+    font-size:70px !important;
+    font-weight:800;
+    margin:0;
+
+    background: linear-gradient(
+        90deg,
+        #ff4d00,
+        #ff8800,
+        #ff5500
+    );
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation: colorMove 6s linear infinite,
+               bounce 2s infinite;
+}
+
+/* character movement */
+.left-character{
+    animation: leftMove 1.5s ease;
+}
+
+.right-character{
+    animation: rightMove 1.5s ease;
+}
+
+@keyframes leftMove{
+    from{
+        transform:translateX(-100px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
+}
+
+@keyframes rightMove{
+    from{
+        transform:translateX(100px);
+        opacity:0;
+    }
+
+    to{
+        transform:translateX(0);
+        opacity:1;
+    }
+}
     </style>
 </head>
 <script>
@@ -187,12 +294,8 @@
 </script>
 
 <body>
-  <h1 class="main-title">
-  🌍 Guide Finder Platform ✈️
-</h1>
-    <p>Welcome to the Guide Finder Platform!</p>
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">GuideFinder</a>
 
@@ -205,14 +308,48 @@
             <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
             <li class="nav-item"><a class="nav-link" href="#footer">About</a></li>
            <li class="nav-item">
-<a class="nav-link" href="#footer-contact">
-    Contact
-</a>
-</li>
-            </ul>
+<a class="nav-link" href="#footer-contact">Contact</a>
+
+                </li>
+              </ul>
             </div>
         </div>
     </nav>
+
+<!-- WELCOME HEADER -->
+<div class="top-header">
+
+    <!-- Boy -->
+    <div class="character left-character">
+    <img src="images/boy.png">
+    </div>
+
+    <!-- Title -->
+    <div class="header-center">
+
+        <div class="title-row">
+            <span class="orange-dot"></span>
+
+            <h1 class="main-title">
+                Guide Finder Platform
+            </h1>
+
+            <span class="plane">✈</span>
+        </div>
+
+        <p class="welcome-msg">
+            Welcome to the Guide Finder Platform!
+        </p>
+
+    </div>
+
+    <!-- Girl -->
+    <div class="character right-character">
+  <img src="images/girl.png">
+    </div>
+
+</div>
+  
 
 <!-- hero section -->
 <section class="hero">
