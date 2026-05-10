@@ -3,547 +3,373 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Guide Finder Platform</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+  body{
+      background:#f5f7fa;
+  }
+  /* NAVBAR */
+  .navbar{
+      position: sticky;
+      top:0;
+      z-index:1000;
+  }
+  /* HERO */
+  .hero{
+      background:linear-gradient(120deg,#007bff,#00c6ff);
+      color:white;
+      padding:80px 20px;
+      text-align:center;
+  }
 
-body{
-    background:#f5f7fa;
-}
+  /* GLOWING BUTTONS */
+  .hero-buttons{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      margin-top:25px;
+  }
 
-/* NAVBAR */
-.navbar{
-    position: sticky;
-    top:0;
-    z-index:1000;
-}
-
-/* HERO */
-.hero{
-    background:linear-gradient(120deg,#007bff,#00c6ff);
-    color:white;
-    padding:80px 20px;
-    text-align:center;
-}
-
-/* GLOWING BUTTONS */
-.hero-buttons{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    margin-top:25px;
-}
-
-.glow-btn{
-    text-decoration:none;
-    background:#fff;
-    color:#007bff;
-    padding:14px 28px;
-    border-radius:30px;
-    font-size:20px;
-    font-weight:bold;
-    transition:0.3s;
-
-    box-shadow:
-      0 0 10px #fff,
-      0 0 20px #00c6ff,
-      0 0 40px #007bff;
-
-    animation: glow 1.5s infinite alternate;
-}
-
-.glow-btn:hover{
-    transform:scale(1.08);
-    background:#007bff;
-    color:white;
-}
-
-@keyframes glow{
-    from{
-        box-shadow:
+  .glow-btn{
+      text-decoration:none;
+      background:#fff;
+      color:#007bff;
+      padding:14px 28px;
+      border-radius:30px;
+      font-size:20px;
+      font-weight:bold;
+      transition:0.3s;
+      box-shadow:
         0 0 10px #fff,
-        0 0 20px #00c6ff;
-    }
+        0 0 20px #00c6ff,
+        0 0 40px #007bff;
+      animation: glow 1.5s infinite alternate;
+  }
 
-    to{
-        box-shadow:
-        0 0 20px #fff,
-        0 0 40px #00c6ff,
-        0 0 60px #007bff;
-    }
-}
+  .glow-btn:hover{
+      transform:scale(1.08);
+      background:#007bff;
+      color:white;
+  }
 
-/* TOP HEADER */
-.top-header{
-    background:#f5f5f5;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:5px 40px;
-    overflow:hidden;
-    min-height:280px;
-}
+  @keyframes glow{
+      from{
+          box-shadow:
+          0 0 10px #fff,
+          0 0 20px #00c6ff;
+      }
 
-.character{
-    width:260px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+      to{
+          box-shadow:
+          0 0 20px #fff,
+          0 0 40px #00c6ff,
+          0 0 60px #007bff;
+      }
+  }
 
-.character img{
-    width:100%;
-    max-height:300px;
-    object-fit:contain;
-}
+  /* TOP HEADER */
+  .top-header{
+      background:#f5f5f5;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:5px 40px;
+      overflow:hidden;
+      min-height:280px;
+  }
 
-.header-center{
-    flex:1;
-    text-align:center;
-}
+  .character{
+      width:260px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+  }
 
-.title-row{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:18px;
-}
+  .character img{
+      width:100%;
+      max-height:300px;
+      object-fit:contain;
+  }
 
-.orange-dot{
-    width:65px;
-    height:65px;
-    background:#ff5a00;
-    border-radius:50%;
-}
+  .header-center{
+      flex:1;
+      text-align:center;
+  }
 
-.main-title{
-    font-size:70px !important;
-    font-weight:800;
-    margin:0;
-    color:#ff5a00 !important;
+  .title-row{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+  }
 
-    animation:
-      colorMove 8s linear infinite,
-      bounce 2s infinite;
-}
+  .orange-dot{
+      width:65px;
+      height:65px;
+      background:#ff5a00;
+      border-radius:50%;
+  }
 
-.welcome-msg{
-    font-size:22px;
-    margin-top:15px;
-    color:#444;
-}
+  .main-title{
+      font-size:70px !important;
+      font-weight:800;
+      margin:0;
+      color:#ff5a00 !important;
 
-.plane{
-    font-size:70px;
-    color:#ffb300;
-    animation:flyPlane 2s infinite ease-in-out;
-}
+      animation:
+        colorMove 8s linear infinite,
+        bounce 2s infinite;
+  }
 
-.left-character{
-    animation:
-    slideLeft 1.5s ease-out,
-    respectMove 2s infinite ease-in-out;
-}
+  .welcome-msg{
+      font-size:22px;
+      margin-top:15px;
+      color:#444;
+  }
 
-.right-character{
-    animation:
-    slideRight 1.5s ease-out,
-    respectMove 2s infinite ease-in-out;
-}
+  .plane{
+      font-size:70px;
+      color:#ffb300;
+      animation:flyPlane 2s infinite ease-in-out;
+  }
 
-@keyframes slideLeft{
-    from{
-        transform:translateX(-150px);
-        opacity:0;
-    }
-    to{
-        transform:translateX(0);
-        opacity:1;
-    }
-}
+  .left-character{
+      animation:
+      slideLeft 1.5s ease-out,
+      respectMove 2s infinite ease-in-out;
+  }
 
-@keyframes slideRight{
-    from{
-        transform:translateX(150px);
-        opacity:0;
-    }
-    to{
-        transform:translateX(0);
-        opacity:1;
-    }
-}
+  .right-character{
+      animation:
+      slideRight 1.5s ease-out,
+      respectMove 2s infinite ease-in-out;
+  }
 
-@keyframes respectMove{
-    0%,100%{
-        transform:translateY(0);
-    }
+  @keyframes slideLeft{
+      from{
+          transform:translateX(-150px);
+          opacity:0;
+      }
+      to{
+          transform:translateX(0);
+          opacity:1;
+      }
+  }
 
-    50%{
-        transform:translateY(-8px);
-    }
-}
+  @keyframes slideRight{
+      from{
+          transform:translateX(150px);
+          opacity:0;
+      }
+      to{
+          transform:translateX(0);
+          opacity:1;
+      }
+  }
 
-@keyframes flyPlane{
-    0%,100%{
-        transform:translateY(0);
-    }
+  @keyframes respectMove{
+      0%,100%{
+          transform:translateY(0);
+      }
 
-    50%{
-        transform:translateY(-10px);
-    }
-}
+      50%{
+          transform:translateY(-8px);
+      }
+  }
 
-.card{
-    border-radius:15px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
+  @keyframes flyPlane{
+      0%,100%{
+          transform:translateY(0);
+      }
 
+      50%{
+          transform:translateY(-10px);
+      }
+  }
 
-.review-card{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.1);
-}
+  .card{
+      border-radius:15px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.1);
+  }
 
+  .review-card{
+      background:white;
+      padding:20px;
+      border-radius:15px;
+      box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  }
 </style>
 </head>
-
 <body>
-
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-<div class="container">
-
-<a class="navbar-brand" href="#">
-GuideFinder
-</a>
-
-<button class="navbar-toggler"
-data-bs-toggle="collapse"
-data-bs-target="#nav">
-
-<span class="navbar-toggler-icon">
-</span>
-
-</button>
-
-<div class="collapse navbar-collapse" id="nav">
-
-<ul class="navbar-nav ms-auto">
-
-<li class="nav-item">
-<a class="nav-link" href="index.html">
-Home
-</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="guides.html">
-Guides
-</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#footer">
-About
-</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="#footer-contact">
-Contact
-</a>
-</li>
-
-</ul>
-</div>
-</div>
+  <div class="container">
+  <a class="navbar-brand" href="#"> GuideFinder </a>
+  <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
+        <li class="nav-item"><a class="nav-link" href="#footer">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#footer-contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
 <!-- TOP HEADER -->
 <div class="top-header">
-
-<div class="character left-character">
-<img src="images/boy.png">
-</div>
-
-<div class="header-center">
-
-<div class="title-row">
-
-<span class="orange-dot"></span>
-
-<h1 class="main-title">
-Guide Finder Platform
-</h1>
-
-<span class="plane">✈</span>
-
-</div>
-
-<p class="welcome-msg">
-Welcome to the Guide Finder Platform!
-</p>
-
-</div>
-
-<div class="character right-character">
-<img src="images/girl.png">
-</div>
-
+  <div class="character left-character">
+  <img src="images/boy.png">
+  </div>
+  <div class="header-center">
+    <div class="title-row">
+      <span class="orange-dot"></span>
+      <h1 class="main-title">Guide Finder Platform</h1>
+      <span class="plane">✈</span>
+    </div>
+      <p class="welcome-msg">Welcome to the Guide Finder Platform!</p>
+    </div>
+    <div class="character right-character">
+      <img src="images/girl.png">
+  </div>
 </div>
 
 <!-- PREMIUM HERO -->
 <section class="hero">
-
-<div class="hero-content">
-
-<div class="travel-icons">
-✈️ 🌍 🧳 🏔️
-</div>
-
-<h1>
-Find Your Perfect Travel Guide
-</h1>
-
-<p>
-Explore amazing cities with trusted local guides
-and discover hidden gems across India.
-</p>
-
-<div class="hero-buttons">
-
-<a href="guides.html" class="glow-btn">
-
-Explore Guides
-
-</a>
-
-<a href="places.html" class="glow-btn">
-
-Explore Places
-
-</a>
-
-</div>
-
-</div>
-
+  <div class="hero-content">
+    <div class="travel-icons">✈️ 🌍 🧳 🏔️</div>
+      <h1>Find Your Perfect Travel Guide</h1>
+      <p>Explore amazing cities with trusted local guides and discover hidden gems across India.</p>
+      <div class="hero-buttons">
+      <a href="guides.html" class="glow-btn">Explore Guides</a>
+      <a href="places.html" class="glow-btn">Explore Places</a>
+    </div>
+  </div>
 </section>
 
 <!-- FEATURED GUIDES -->
 <div class="container py-5">
-
-<h2 class="text-center mb-4">
-🌟 Featured Guides
-</h2>
-
-<div class="row g-4">
-
-<div class="col-md-4">
-<div class="card text-center p-3">
-
-<img src="https://randomuser.me/api/portraits/men/32.jpg"
-class="rounded-circle mx-auto"
-width="100">
-
-<h5 class="mt-3">
-Rahul Sharma
-</h5>
-
-<p>📍 Kolkata</p>
-<p>⭐ 4.5</p>
-
-<button class="btn btn-primary mt-2">
-Book Now
-</button>
-
-</div>
-</div>
-<div class="col-md-4">
-<div class="card text-center p-3">
-
-<img src="https://randomuser.me/api/portraits/women/45.jpg"
-class="rounded-circle mx-auto"
-width="100">
-
-<h5 class="mt-3">
-Priya Das
-</h5>
-
-<p>📍 Jaipur</p>
-<p>⭐ 4.8</p>
-
-<button class="btn btn-primary mt-2">
-Book Now
-</button>
-
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="card text-center p-3">
-
-<img src="https://randomuser.me/api/portraits/men/50.jpg"
-class="rounded-circle mx-auto"
-width="100">
-
-<h5 class="mt-3">
-Amit Kumar
-</h5>
-
-<p>📍 Agra</p>
-<p>⭐ 4.6</p>
-
-<button class="btn btn-primary mt-2">
-Book Now
-</button>
-
-</div>
-</div>
-
-</div>
+  <h2 class="text-center mb-4"> 🌟 Featured Guides</h2>
+  <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg"
+          class="rounded-circle mx-auto"
+          width="100">
+          <h5 class="mt-3">Rahul Sharma</h5>
+          <p>📍 Kolkata</p>
+          <p>⭐ 4.5</p>
+          <button class="btn btn-primary mt-2">Book Now</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg"
+          class="rounded-circle mx-auto"
+          width="100">
+          <h5 class="mt-3">Priya Das</h5>
+          <p>📍 Jaipur</p>
+          <p>⭐ 4.8</p>
+          <button class="btn btn-primary mt-2"> Book Now</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+        <img src="https://randomuser.me/api/portraits/men/50.jpg"
+        class="rounded-circle mx-auto"
+        width="100">
+        <h5 class="mt-3">Amit Kumar</h5>
+        <p>📍 Agra</p>
+        <p>⭐ 4.6</p>
+        <button class="btn btn-primary mt-2">Book Now</button>
+        </div>
+    </div>
+  </div>
 </div>
 
 <!-- REVIEWS -->
 <div class="container py-5">
+  <h2 class="text-center mb-4">💬 What Our Users Say</h2>
 
-<h2 class="text-center mb-4">
-💬 What Our Users Say
-</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="review-card">
+        <p>"Amazing experience! The guide was very friendly and knowledgeable."</p>
+        <h6>⭐ 5 - Rohan</h6>
+      </div>
+    </div>
 
-<div class="row g-4">
+    <div class="col-md-4">
+      <div class="review-card">
+          <p>"Helped me explore hidden places in Jaipur. Highly recommended!"</p>
+          <h6>⭐ 4.8 - Sneha</h6>
+      </div>
+    </div>
 
-<div class="col-md-4">
-<div class="review-card">
-<p>
-"Amazing experience! The guide was very friendly and knowledgeable."
-</p>
-<h6>⭐ 5 - Rohan</h6>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="review-card">
-<p>
-"Helped me explore hidden places in Jaipur. Highly recommended!"
-</p>
-<h6>⭐ 4.8 - Sneha</h6>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="review-card">
-<p>
-"Booking was smooth and guide was professional."
-</p>
-<h6>⭐ 4.7 - Arjun</h6>
-</div>
-</div>
-
-</div>
+    <div class="col-md-4">
+      <div class="review-card">
+        <p>"Booking was smooth and guide was professional."</p>
+        <h6>⭐ 4.7 - Arjun</h6>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- HOMEPAGE TOURIST PLACES -->
 <div class="container py-5">
-
-<h2 class="text-center mb-4">
-🌍 Popular Tourist Places
-</h2>
+  <h2 class="text-center mb-4">
+  🌍 Popular Tourist Places
+  </h2>
 
 <div class="row g-4">
-
 <!-- Shimla -->
 <div class="col-md-4">
-<div class="card text-center p-3">
-<img src="images/shimla.jpg" class="img-fluid rounded">
-<h4 class="mt-3">Shimla</h4>
-<p>₹6499</p>
+  <div class="card text-center p-3">
+    <img src="images/shimla.jpg" class="img-fluid rounded">
+    <h4 class="mt-3">Shimla</h4>
+    <p>₹6499</p>
+  </div>
 </div>
-</div>
-
 <!-- Ooty -->
 <div class="col-md-4">
-<div class="card text-center p-3">
-<img src="images/ooty.jpg" class="img-fluid rounded">
-<h4 class="mt-3">Ooty</h4>
-<p>₹7999</p>
+  <div class="card text-center p-3">
+    <img src="images/ooty.jpg" class="img-fluid rounded">
+    <h4 class="mt-3">Ooty</h4>
+    <p>₹7999</p>
+  </div>
 </div>
-</div>
-
 <!-- Varanasi -->
 <div class="col-md-4">
-<div class="card text-center p-3">
-<img src="images/varanasi.jpg" class="img-fluid rounded">
-<h4 class="mt-3">Varanasi</h4>
-<p>₹3999</p>
+  <div class="card text-center p-3">
+    <img src="images/varanasi.jpg" class="img-fluid rounded">
+    <h4 class="mt-3">Varanasi</h4>
+    <p>₹3999</p>
+    </div>
+    </div>
+  </div>
 </div>
-</div>
-
-</div>
-</div>
-
 
 <!-- FEEDBACK -->
 <div class="container py-5">
-
-<h2 class="text-center mb-4">
-📝 Share Your Experience
-</h2>
-
+<h2 class="text-center mb-4">📝 Share Your Experience</h2>
 <div class="row justify-content-center">
-
 <div class="col-md-6">
-
-<input
-type="text"
-class="form-control mb-2"
-placeholder="Your Name">
-
-<textarea
-class="form-control mb-2"
-placeholder="Your Feedback">
-</textarea>
-
+<input type="text" class="form-control mb-2" placeholder="Your Name">
+<textarea class="form-control mb-2" placeholder="Your Feedback"></textarea>
 <select class="form-control mb-2">
-
-<option>
-Rating ⭐
-</option>
-
-<option>
-5 ⭐⭐⭐⭐⭐
-</option>
-
-<option>
-4 ⭐⭐⭐⭐
-</option>
-
-<option>
-3 ⭐⭐⭐
-</option>
-
-<option>
-2 ⭐⭐
-</option>
-
-<option>
-1 ⭐
-</option>
-
+<option> Rating ⭐</option>
+<option>5 ⭐⭐⭐⭐⭐</option>
+<option>4 ⭐⭐⭐⭐</option>
+<option>3 ⭐⭐⭐</option>
+<option>2 ⭐⭐</option>
+<option>1 ⭐</option>
 </select>
-
-<button class="btn btn-primary w-100">
-Submit Feedback
-</button>
-
+<button class="btn btn-primary w-100">Submit Feedback</button>
 </div>
 </div>
 </div>
@@ -555,72 +381,35 @@ class="text-center bg-dark text-white py-4">
 <h3>
 📞 Contact Us
 </h3>
-
-<p>
-Connect with us
-</p>
-
 <div class="d-flex justify-content-center gap-3">
-
-<a href="tel:+919064339353">
-<i class="fas fa-phone text-success fs-2"></i>
-</a>
-
-<a href="https://wa.me/919064339353"
-target="_blank">
-
-<i class="fab fa-whatsapp text-success fs-2"></i>
-
-</a>
-
-<a href="mailto:yourmail@gmail.com">
-
-<i class="fas fa-envelope text-danger fs-2"></i>
-
-</a>
-
+<a href="tel:+919064339353"><i class="fas fa-phone text-success fs-2"></i></a>
+<a href="https://wa.me/916204812798" target="_blank"><i class="fab fa-whatsapp text-success fs-2"></i></a>
+<a href="mailto:rishi2012000@gmail.com"><i class="fas fa-envelope text-danger fs-2"></i></a>
 <a href="https://instagram.com/yourprofile"
-target="_blank">
-
-<i class="fab fa-instagram text-danger fs-2"></i>
-
-</a>
-
+target="_blank"><i class="fab fa-instagram text-danger fs-2"></i></a>
 <a href="https://facebook.com/yourprofile"
-target="_blank">
-
-<i class="fab fa-facebook text-primary fs-2"></i>
-
-</a>
-
+target="_blank"><i class="fab fa-facebook text-primary fs-2"></i></a>
 </div>
 
 <p class="mt-3">
-copyright &copy; 2026
-Guide Finder Platform.
-All rights reserved.
-</p>
-
+copyright &copy; 2026 Guide Finder Platform. All rights reserved.</p>
 </footer>
 
 <footer id="footer"
 class="bg-dark text-white text-center p-4">
-
-<p>
-Welcome to the Guide Finder Platform!
+<p>Welcome to the Guide Finder Platform!
 Here you can find experienced guides
-to help you explore new places and cultures.
-</p>
-
-<p>
+to help you explore new places and cultures. 
+Guides are available for various destinations and interests.
+here we help you connect with the best guides for your next adventure!
+  we are committed to providing you with the best guide services!
 Our guides are passionate about sharing
 their love for their cities and cultures.
 </p>
 
+<p>Here are some of the places you can explore with our guides: which include the beautiful cities of Shimla, Ooty, and Varanasi, etc. here you can find the best guides for your next adventure! They are knowledgeable and friendly. They are dedicated to providing you with an unforgettable experience and transmitting their passion for their cities and cultures. They will be your perfect companions for an amazing journey! They will be transmitting their knowledge and enthusiasm to make your trip truly memorable! They will be transparent to you in terms of their services and pricing.</p>
 </footer>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
 </script>
-
 </body>
 </html>
