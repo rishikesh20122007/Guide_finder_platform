@@ -12,13 +12,12 @@ body {
 }
 
 body {
-  background-image: url('./mesut-kaya-eOcyhe5-9sQ-unsplash (1).jpg');
+  background-image: url('images/mesut-kaya-eOcyhe5-9sQ-unsplash (1).jpg');
   background-size: cover; /* Ensures the image covers the whole screen */
   background-position: center;
   background-repeat: repeat;
   height: 100vh;
 }
-
 
 .guide-card {
     border: 2px solid #313131;
@@ -56,10 +55,7 @@ body {
     <div class="row g-4" id="guideContainer"></div>
     </div>
     <script src="script.js"></script>
-
-
     <!-- Booking Popup -->
-
 
 <div id="bookingForm" style="
   display:none;
@@ -74,7 +70,6 @@ body {
   z-index:1000;
 ">
   <h3 id="guideTitle">Book Guide</h3>
-
   <input type="text" id="userName" class="form-control mb-2" placeholder="Your Name">
   <input type="date" id="date" class="form-control mb-2">
 
@@ -83,6 +78,8 @@ body {
     <option>10:00</option>
     <option>11:00</option>
     <option>12:00</option>
+    <option>02:00</option>
+    <option>04:00</option>
   </select>
 
   <button class="btn btn-success w-100 mb-2" onclick="submitBooking()">Confirm Booking</button>
@@ -116,9 +113,9 @@ async function submitBooking() {
 
   const data = {
     guide: selectedGuide,
-    user,
-    date,
-    time
+    user: user,
+    date: date,
+    time: time
   };
 
   try {
@@ -138,9 +135,6 @@ async function submitBooking() {
     alert("❌ Server error");
   }
 }
-</script>
-
-
-   
+</script> 
 </body>
 </html>
