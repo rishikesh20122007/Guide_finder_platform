@@ -1,685 +1,626 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide Finder Platform</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Guide Finder Platform</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <style>
-        body {
-            background-color: #f5f7fa;
-        }
-        /* HERO */
-        .hero {
-            background: linear-gradient(120deg, #007bff, #00c6ff);
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-        /* CARDS */
-        .card {
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-        .tour-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  margin-top: 20px;
+<style>
+
+body{
+    background:#f5f7fa;
 }
 
-.tour-card {
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
-  position: relative;
-  transition: 0.3s;
+/* NAVBAR */
+.navbar{
+    position: sticky;
+    top:0;
+    z-index:1000;
 }
 
-.tour-card img {
-  width: 100%;
-  height: 120px;
-  border-radius: 10px;
-  object-fit: cover;
+/* HERO */
+.hero{
+    background:linear-gradient(120deg,#007bff,#00c6ff);
+    color:white;
+    padding:80px 20px;
+    text-align:center;
 }
 
-.tour-card:hover {
-  transform: scale(1.05);
+/* GLOWING BUTTONS */
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:25px;
 }
 
-/* Hover price */
-.tour-info {
-  position: absolute;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: black;
-  color: white;
-  padding: 8px;
-  border-radius: 8px;
-  opacity: 0;
-  transition: 0.3s;
+.glow-btn{
+    text-decoration:none;
+    background:#fff;
+    color:#007bff;
+    padding:14px 28px;
+    border-radius:30px;
+    font-size:20px;
+    font-weight:bold;
+    transition:0.3s;
+
+    box-shadow:
+      0 0 10px #fff,
+      0 0 20px #00c6ff,
+      0 0 40px #007bff;
+
+    animation: glow 1.5s infinite alternate;
 }
 
-.tour-card:hover .tour-info {
-  opacity: 1;
+.glow-btn:hover{
+    transform:scale(1.08);
+    background:#007bff;
+    color:white;
 }
 
-        /* REVIEW */
-        .review-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        /* FOOTER */
-        footer {
-            background: #222;
-            color: white;
-            padding: 20px;
-        }
-        /* CONTACT DROPDOWN BOX */
-.contact-menu {
-  position: relative;
-}
-
-.contact-dropdown {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-/* ICON STYLE */
-.contact-dropdown a {
-  text-align: center;
-}
-
-.contact-dropdown i {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 20px;
-  transition: 0.3s;
-}
-
-/* COLORS */
-.fa-phone { background: #28a745; }
-.fa-whatsapp { background: #25D366; }
-.fa-envelope { background: #EA4335; }
-.fa-instagram { background: #E1306C; }
-.fa-facebook { background: #1877F2; }
-
-/* HOVER */
-.contact-dropdown i:hover {
-  transform: scale(1.2);
-}
-
-
-
-/* Animated Colorful Title */
-.main-title {
-    text-align: center;
-    font-size: 60px;
-    font-weight: bold;
-    margin-top: 20px;
-
-    background: linear-gradient(
-        90deg,
-        #ff0000,
-        #ff7300,
-        #fffb00,
-        #48ff00,
-        #00ffd5,
-        #002bff,
-        #7a00ff,
-        #ff00c8
-    );
-
-    background-size: 400%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    animation: colorMove 8s linear infinite,
-               bounce 2s infinite;
-}
-
-/* Rainbow moving effect */
-@keyframes colorMove {
-    0% {
-        background-position: 0%;
+@keyframes glow{
+    from{
+        box-shadow:
+        0 0 10px #fff,
+        0 0 20px #00c6ff;
     }
-    100% {
-        background-position: 400%;
+
+    to{
+        box-shadow:
+        0 0 20px #fff,
+        0 0 40px #00c6ff,
+        0 0 60px #007bff;
     }
 }
 
-/* Bounce animation */
-@keyframes bounce {
-    0%,100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-    /* ===== TOP HEADER ===== */
-
+/* TOP HEADER */
 .top-header{
-    background:#f3f3f3;
+    background:#f5f5f5;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:10px 60px;
+    padding:5px 40px;
+    overflow:hidden;
+    min-height:280px;
 }
 
-/* Character */
 .character{
-    width:180px;
+    width:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .character img{
     width:100%;
+    max-height:300px;
+    object-fit:contain;
 }
 
-/* Center */
 .header-center{
-    text-align:center;
     flex:1;
+    text-align:center;
 }
 
-/* Title row */
 .title-row{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:20px;
+    gap:18px;
 }
 
-/* Orange circle */
 .orange-dot{
     width:65px;
     height:65px;
-    border-radius:50%;
     background:#ff5a00;
+    border-radius:50%;
 }
 
-/* Plane */
-.plane{
-    font-size:70px;
-    color:#ffb300;
-}
-
-/* Welcome */
-.welcome-msg{
-    font-size:20px;
-    margin-top:15px;
-    color:#444;
-}
-
-/* Better title */
 .main-title{
     font-size:70px !important;
     font-weight:800;
     margin:0;
+    color:#ff5a00 !important;
 
-    background: linear-gradient(
-        90deg,
-        #ff4d00,
-        #ff8800,
-        #ff5500
-    );
-
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-
-    animation: colorMove 6s linear infinite,
-               bounce 2s infinite;
+    animation:
+      colorMove 8s linear infinite,
+      bounce 2s infinite;
 }
 
-/* character movement */
+.welcome-msg{
+    font-size:22px;
+    margin-top:15px;
+    color:#444;
+}
+
+.plane{
+    font-size:70px;
+    color:#ffb300;
+    animation:flyPlane 2s infinite ease-in-out;
+}
+
 .left-character{
-    animation: leftMove 1.5s ease;
+    animation:
+    slideLeft 1.5s ease-out,
+    respectMove 2s infinite ease-in-out;
 }
 
 .right-character{
-    animation: rightMove 1.5s ease;
+    animation:
+    slideRight 1.5s ease-out,
+    respectMove 2s infinite ease-in-out;
 }
 
-@keyframes leftMove{
+@keyframes slideLeft{
     from{
-        transform:translateX(-100px);
+        transform:translateX(-150px);
         opacity:0;
     }
-
     to{
         transform:translateX(0);
         opacity:1;
     }
 }
 
-@keyframes rightMove{
+@keyframes slideRight{
     from{
-        transform:translateX(100px);
+        transform:translateX(150px);
         opacity:0;
     }
-
     to{
         transform:translateX(0);
         opacity:1;
     }
 }
-    </style>
+
+@keyframes respectMove{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+}
+
+@keyframes flyPlane{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+.card{
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+.review-card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+</style>
 </head>
-<script>
-
-
-
-</script>
 
 <body>
-    <!-- NAVBAR -->
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">GuideFinder</a>
 
-            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-            <div class="collapse navbar-collapse" id="nav">
-                <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
-            <li class="nav-item"><a class="nav-link" href="#footer">About</a></li>
-           <li class="nav-item">
-<a class="nav-link" href="#footer-contact">Contact</a>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<div class="container">
 
-                </li>
-              </ul>
-            </div>
-        </div>
-    </nav>
+<a class="navbar-brand" href="#">
+GuideFinder
+</a>
 
-<!-- WELCOME HEADER -->
+<button class="navbar-toggler"
+data-bs-toggle="collapse"
+data-bs-target="#nav">
+
+<span class="navbar-toggler-icon">
+</span>
+
+</button>
+
+<div class="collapse navbar-collapse" id="nav">
+
+<ul class="navbar-nav ms-auto">
+
+<li class="nav-item">
+<a class="nav-link" href="index.html">
+Home
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="guides.html">
+Guides
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#footer">
+About
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="#footer-contact">
+Contact
+</a>
+</li>
+
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- TOP HEADER -->
 <div class="top-header">
 
-    <!-- Boy -->
-    <div class="character left-character">
-    <img src="images/boy.png">
-    </div>
+<div class="character left-character">
+<img src="images/boy.png">
+</div>
 
-    <!-- Title -->
-    <div class="header-center">
+<div class="header-center">
 
-        <div class="title-row">
-            <span class="orange-dot"></span>
+<div class="title-row">
 
-            <h1 class="main-title">
-                Guide Finder Platform
-            </h1>
+<span class="orange-dot"></span>
 
-            <span class="plane">✈</span>
-        </div>
+<h1 class="main-title">
+Guide Finder Platform
+</h1>
 
-        <p class="welcome-msg">
-            Welcome to the Guide Finder Platform!
-        </p>
-
-    </div>
-
-    <!-- Girl -->
-    <div class="character right-character">
-  <img src="images/girl.png">
-    </div>
+<span class="plane">✈</span>
 
 </div>
-  
 
-<!-- hero section -->
+<p class="welcome-msg">
+Welcome to the Guide Finder Platform!
+</p>
+
+</div>
+
+<div class="character right-character">
+<img src="images/girl.png">
+</div>
+
+</div>
+
+<!-- PREMIUM HERO -->
 <section class="hero">
-<h1>Find Your Perfect Travel Guide 🌍</h1>
-<p>Explore cities with trusted local guides</p>
-<a href="guides.html" class="btn btn-light mt-3">Explore Guides</a>
+
+<div class="hero-content">
+
+<div class="travel-icons">
+✈️ 🌍 🧳 🏔️
+</div>
+
+<h1>
+Find Your Perfect Travel Guide
+</h1>
+
+<p>
+Explore amazing cities with trusted local guides
+and discover hidden gems across India.
+</p>
+
+<div class="hero-buttons">
+
+<a href="guides.html" class="glow-btn">
+
+Explore Guides
+
+</a>
+
+<a href="places.html" class="glow-btn">
+
+Explore Places
+
+</a>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- //guide features and reviews -->
-<section>
+<!-- FEATURED GUIDES -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">🌟 Featured Guides</h2>
-    <div class="row g-4">
-    <div class="col-md-4">
-    <div class="card text-center p-3">
-    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle mx-auto" width="100">
-    <h5 class="mt-3">Rahul Sharma</h5>
-    <p>📍 Kolkata</p>
-    <p>⭐ 4.5</p>
-    <button class="btn btn-primary mt-2" onclick="bookGuide('Rahul Sharma')">
-    Book Now
+
+<h2 class="text-center mb-4">
+🌟 Featured Guides
+</h2>
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card text-center p-3">
+
+<img src="https://randomuser.me/api/portraits/men/32.jpg"
+class="rounded-circle mx-auto"
+width="100">
+
+<h5 class="mt-3">
+Rahul Sharma
+</h5>
+
+<p>📍 Kolkata</p>
+<p>⭐ 4.5</p>
+
+<button class="btn btn-primary mt-2">
+Book Now
 </button>
-    </div>
+
+</div>
 </div>
 <div class="col-md-4">
-    <div class="card text-center p-3">
-    <img src="https://randomuser.me/api/portraits/women/45.jpg" class="rounded-circle mx-auto" width="100">
-    <h5 class="mt-3">Priya Das</h5>
-    <p>📍 Jaipur</p>
-    <p>⭐ 4.8</p>
-    <button class="btn btn-primary mt-2" onclick="bookGuide('Priya Das')">
-  Book Now
+<div class="card text-center p-3">
+
+<img src="https://randomuser.me/api/portraits/women/45.jpg"
+class="rounded-circle mx-auto"
+width="100">
+
+<h5 class="mt-3">
+Priya Das
+</h5>
+
+<p>📍 Jaipur</p>
+<p>⭐ 4.8</p>
+
+<button class="btn btn-primary mt-2">
+Book Now
 </button>
-    </div>
-</div>
-<div class="col-md-4">
-    <div class="card text-center p-3">
-    <img src="https://randomuser.me/api/portraits/men/50.jpg" class="rounded-circle mx-auto" width="100">
-    <h5 class="mt-3">Amit Kumar</h5>
-    <p>📍 Agra</p>
-    <p>⭐ 4.6</p>
-    <button class="btn btn-primary mt-2" onclick="bookGuide('Amit Kumar')">
-  Book Now
-</button>
-    </div>
-</div>
+
 </div>
 </div>
 
-<!-- //review and feedback system -->
+<div class="col-md-4">
+<div class="card text-center p-3">
+
+<img src="https://randomuser.me/api/portraits/men/50.jpg"
+class="rounded-circle mx-auto"
+width="100">
+
+<h5 class="mt-3">
+Amit Kumar
+</h5>
+
+<p>📍 Agra</p>
+<p>⭐ 4.6</p>
+
+<button class="btn btn-primary mt-2">
+Book Now
+</button>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- REVIEWS -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">💬 What Our Users Say</h2>
-        <div class="row g-4">
-        <div class="col-md-4">
-        <div class="review-card">
-        <p>"Amazing experience! The guide was very friendly and knowledgeable."</p>
-        <h6>⭐ 5 - Rohan</h6>
-    </div>
-</div>
+
+<h2 class="text-center mb-4">
+💬 What Our Users Say
+</h2>
+
+<div class="row g-4">
+
 <div class="col-md-4">
-    <div class="review-card">
-    <p>"Helped me explore hidden places in Jaipur. Highly recommended!"</p>
-    <h6>⭐ 4.8 - Sneha</h6>
-    </div>
+<div class="review-card">
+<p>
+"Amazing experience! The guide was very friendly and knowledgeable."
+</p>
+<h6>⭐ 5 - Rohan</h6>
 </div>
+</div>
+
 <div class="col-md-4">
-    <div class="review-card">
-    <p>"Booking was smooth and guide was professional."</p>
-    <h6>⭐ 4.7 - Arjun</h6>
-    </div>
+<div class="review-card">
+<p>
+"Helped me explore hidden places in Jaipur. Highly recommended!"
+</p>
+<h6>⭐ 4.8 - Sneha</h6>
 </div>
 </div>
+
+<div class="col-md-4">
+<div class="review-card">
+<p>
+"Booking was smooth and guide was professional."
+</p>
+<h6>⭐ 4.7 - Arjun</h6>
+</div>
 </div>
 
-<!-- 🔷 TOUR SECTION -->
-<div id="tour" class="tabContent" style="display:contents;">
-  <h2 style="text-align: center;">Tourist Places</h2>
-
-    <div class="tour-container">
-        <div class="tour-card">
-    <img src="images/shimla.jpg">
-    <h4>Shimla</h4>
-    <div class="tour-info"><p>₹6499</p></div>
-    </div>
-
-    <div class="tour-card">
-    <img src="images/kerala.jpg">
-    <h4>Kerala</h4>
-    <div class="tour-info"><p>₹16999</p></div>
-    </div>
-
-    <div class="tour-card">
-    <img src="images/ladakh.jpg">
-    <h4>Ladakh</h4>
-    <div class="tour-info"><p>₹19999</p></div>
-    </div>
-
-    <div class="tour-card">
-    <img src="images/ooty.jpg">
-    <h4>Ooty</h4>
-    <div class="tour-info"><p>₹7999</p></div>
-    </div>
-
-    <div class="tour-card">
-    <img src="images/mysore.jpg">
-    <h4>Mysore</h4>
-    <div class="tour-info"><p>₹6599</p></div>
-    </div>
-
-    <div class="tour-card">
-    <img src="images/rishikesh.jpg">
-    <h4>Rishikesh</h4>
-    <div class="tour-info"><p>₹4999</p></div>
-    </div>
-    <div class="tour-card">
-        <img src="images/varanasi.jpg">
-        <h4>Varanasi</h4>
-        <div class="tour-info"><p>₹3999</p></div>
-    </div>
-
-    <div class="tour-card">
-      <img src="images/goa.jpg">
-      <h4>Goa</h4>
-      <div class="tour-info">
-        <p>₹5000</p>
-      </div>
-    </div>
-
-    <div class="tour-card">
-      <img src="images/manali.jpg">
-      <h4>Manali</h4>
-      <div class="tour-info">
-        <p>₹7999</p>
-      </div>
-    </div>
-
-    <div class="tour-card">
-      <img src="images/tajmahal.jpg">
-      <h4>Taj Mahal</h4>
-      <div class="tour-info">
-        <p>₹3999</p>
-      </div>
-    </div>
-
-    <div class="tour-card">
-      <img src="images/Bihar.png">
-      <h4>Bihar</h4>
-      <div class="tour-info">
-        <p>₹7099</p>
-      </div>
-    </div>
-
-    <div class="tour-card">
-      <img src="images/Rajasthan.png">
-      <h4>Rajasthan</h4>
-      <div class="tour-info">
-        <p>₹10999</p>
-      </div>
-    </div>
-
-  </div>
 </div>
-<!-- BOOKING POPUP -->
-<div id="bookingForm" style="
-  display:none;
-  position:fixed;
-  top:30%;
-  left:40%;
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 0 10px gray;
-  z-index:1000;
-">
-  <h3>Book Guide</h3>
-
-  <input type="text" id="userName" class="form-control mb-2" placeholder="Your Name">
-  <input type="date" id="date" class="form-control mb-2">
-  //For timeing Slot
-  <select id="time" class="form-control mb-2">
-    <option value="">Select Time</option>
-    <option value="10:00">10:00</option>
-    <option value="11:00">11:00</option>
-    <option value="12:00">12:00</option>
-    <option value="13:00">01:00 PM</option>
-  </select>
-
-  <button class="btn btn-success w-100 mb-2" onclick="submitBooking()">Confirm Booking</button>
-  <button class="btn btn-danger w-100" onclick="closeForm()">Cancel</button>
 </div>
-<!-- //Feedback form -->
+
+<!-- HOMEPAGE TOURIST PLACES -->
 <div class="container py-5">
-    <h2 class="text-center mb-4">📝 Share Your Experience</h2>
-    <div class="row justify-content-center">
-    <div class="col-md-6">
-    <input type="text" id="name" class="form-control mb-2" placeholder="Your Name">
-    <textarea id="review" class="form-control mb-2" placeholder="Your Feedback"></textarea>
-        <select id="rating" class="form-control mb-2">
-            <option>Rating ⭐</option>
-            <option>5 ⭐⭐⭐⭐⭐</option>
-            <option>4 ⭐⭐⭐⭐</option>
-            <option>3 ⭐⭐⭐</option>
-            <option>2 ⭐⭐</option>
-            <option>1 ⭐</option>
-        </select>
 
-            <button onclick="addReview()" class="btn btn-primary w-100">
-            Submit Feedback
-            </button>
+<h2 class="text-center mb-4">
+🌍 Popular Tourist Places
+</h2>
 
-        </div>
-    </div>
+<div class="row g-4">
+
+<!-- Shimla -->
+<div class="col-md-4">
+<div class="card text-center p-3">
+<img src="images/shimla.jpg" class="img-fluid rounded">
+<h4 class="mt-3">Shimla</h4>
+<p>₹6499</p>
+</div>
+</div>
+
+<!-- Ooty -->
+<div class="col-md-4">
+<div class="card text-center p-3">
+<img src="images/ooty.jpg" class="img-fluid rounded">
+<h4 class="mt-3">Ooty</h4>
+<p>₹7999</p>
+</div>
+</div>
+
+<!-- Varanasi -->
+<div class="col-md-4">
+<div class="card text-center p-3">
+<img src="images/varanasi.jpg" class="img-fluid rounded">
+<h4 class="mt-3">Varanasi</h4>
+<p>₹3999</p>
+</div>
+</div>
+
+</div>
 </div>
 
 
-<!-- FOOTER -->
-<footer id="footer-contact" class="text-center bg-dark text-white py-4">
-    <h3>📞 Contact Us</h3>
-    <p>Connect with us</p>
+<!-- FEEDBACK -->
+<div class="container py-5">
 
-    <div id="contactDropdown" class="contact-dropdown">
-      <a href="tel:+919064339353">
-        <i class="fas fa-phone"></i>
-      </a>
+<h2 class="text-center mb-4">
+📝 Share Your Experience
+</h2>
 
-      <a href="https://wa.me/919064339353" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-      </a>
+<div class="row justify-content-center">
 
-      <a href="mailto:yourmail@gmail.com">
-        <i class="fas fa-envelope"></i>
-      </a>
+<div class="col-md-6">
 
-      <a href="https://instagram.com/yourprofile" target="_blank">
-        <i class="fab fa-instagram"></i>
-      </a>
+<input
+type="text"
+class="form-control mb-2"
+placeholder="Your Name">
 
-      <a href="https://facebook.com/yourprofile" target="_blank">
-        <i class="fab fa-facebook"></i>
-      </a>
-    </div>
-    <p>copyright &copy; 2026 Guide Finder Platform. All rights reserved.</p>
+<textarea
+class="form-control mb-2"
+placeholder="Your Feedback">
+</textarea>
+
+<select class="form-control mb-2">
+
+<option>
+Rating ⭐
+</option>
+
+<option>
+5 ⭐⭐⭐⭐⭐
+</option>
+
+<option>
+4 ⭐⭐⭐⭐
+</option>
+
+<option>
+3 ⭐⭐⭐
+</option>
+
+<option>
+2 ⭐⭐
+</option>
+
+<option>
+1 ⭐
+</option>
+
+</select>
+
+<button class="btn btn-primary w-100">
+Submit Feedback
+</button>
+
+</div>
+</div>
+</div>
+
+<!-- CONTACT FOOTER -->
+<footer id="footer-contact"
+class="text-center bg-dark text-white py-4">
+
+<h3>
+📞 Contact Us
+</h3>
+
+<p>
+Connect with us
+</p>
+
+<div class="d-flex justify-content-center gap-3">
+
+<a href="tel:+919064339353">
+<i class="fas fa-phone text-success fs-2"></i>
+</a>
+
+<a href="https://wa.me/919064339353"
+target="_blank">
+
+<i class="fab fa-whatsapp text-success fs-2"></i>
+
+</a>
+
+<a href="mailto:yourmail@gmail.com">
+
+<i class="fas fa-envelope text-danger fs-2"></i>
+
+</a>
+
+<a href="https://instagram.com/yourprofile"
+target="_blank">
+
+<i class="fab fa-instagram text-danger fs-2"></i>
+
+</a>
+
+<a href="https://facebook.com/yourprofile"
+target="_blank">
+
+<i class="fab fa-facebook text-primary fs-2"></i>
+
+</a>
+
+</div>
+
+<p class="mt-3">
+copyright &copy; 2026
+Guide Finder Platform.
+All rights reserved.
+</p>
+
 </footer>
 
-<script>
+<footer id="footer"
+class="bg-dark text-white text-center p-4">
 
-// -------- REVIEW FUNCTION --------
-function addReview() {
-    const name = document.getElementById("name").value;
-    const review = document.getElementById("review").value;
+<p>
+Welcome to the Guide Finder Platform!
+Here you can find experienced guides
+to help you explore new places and cultures.
+</p>
 
-    if (!name || !review) {
-        alert("Please fill all fields!");
-        return;
-    }
+<p>
+Our guides are passionate about sharing
+their love for their cities and cultures.
+</p>
 
-    alert("✅ Thank you for your feedback!");
+</footer>
 
-    document.getElementById("name").value = "";
-    document.getElementById("review").value = "";
-}
-
-
-// -------- BOOKING SYSTEM --------
-let selectedGuide = "";
-
-// open form
-function bookGuide(name) {
-  selectedGuide = name;
-  document.getElementById("bookingForm").style.display = "block";
-}
-
-// close form
-function closeForm() {
-  document.getElementById("bookingForm").style.display = "none";
-}
-
-// submit booking
-async function submitBooking() {
-  const data = {
-    guide: selectedGuide,
-    user: document.getElementById("userName").value,
-    date: document.getElementById("date").value,
-    time: document.getElementById("time").value
-  };
-
-  try {
-    const res = await fetch("http://localhost:5000/book", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    });
-
-    const result = await res.json();
-    alert(result.message);
-
-    closeForm();
-  } catch (error) {
-    alert("❌ Server error");
-  }
-}
-//Detect date changesss
-document.getElementById("date").addEventListener("change", async () => {
-  const date = document.getElementById("date").value;
-
-  if (!date || !selectedGuide) return;
-
-  const res = await fetch(`http://localhost:5000/bookings/${selectedGuide}/${date}`);
-  const bookings = await res.json();
-
-  console.log("Booked slots:", bookings);
-
-  showBookedSlots(bookings);
-});
-//For showing slots
-function showBookedSlots(bookings) {
-  const bookedTimes = bookings.map(b => b.time);
-
-  if (bookedTimes.length > 0) {
-    alert("❌ Already booked times: " + bookedTimes.join(", "));
-  }
-}
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</section>
-    <footer id="footer">
-         <p>Welcome to the Guide Finder Platform! Here you can find experienced guides to help you explore new places and cultures. Whether you're looking for a local guide in a specific city or want to discover hidden gems, our platform connects you with knowledgeable guides who can provide personalized tours and insights.</p>
-            <p>Our guides are passionate about sharing their love for their cities and cultures. They can help you navigate through historical landmarks, vibrant neighborhoods, and local cuisine. With our platform, you can easily find guides based on your interests, language preferences, and budget.</p>
-    </footer>
 </body>
 </html>

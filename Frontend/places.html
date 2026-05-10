@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Explore Places</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<style>
+
+body{
+    background:#f4f7fb;
+}
+
+/* TITLE */
+.page-title{
+    text-align:center;
+    font-size:55px;
+    font-weight:bold;
+    color:#ff5a00;
+    margin:40px 0;
+}
+
+/* CARD */
+.place-card{
+    border:none;
+    border-radius:20px;
+    overflow:hidden;
+    transition:0.4s;
+    box-shadow:0 5px 20px rgba(0,0,0,0.15);
+
+    min-height:420px;
+    background:white;
+}
+
+/* IMAGE */
+.place-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+/* HOVER */
+.place-card:hover{
+    transform:
+    translateY(-10px)
+    scale(1.04);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* HIDDEN PRICE */
+.price{
+    opacity:0;
+    transform:translateY(10px);
+
+    font-size:24px;
+    color:green;
+    font-weight:bold;
+
+    transition:0.4s;
+}
+
+/* SHOW PRICE ON HOVER */
+.place-card:hover .price{
+    opacity:1;
+    transform:translateY(0);
+
+    animation:
+    glowPrice 1s infinite alternate;
+}
+
+@keyframes glowPrice{
+    from{
+        text-shadow:
+        0 0 5px lime;
+    }
+
+    to{
+        text-shadow:
+        0 0 15px lime,
+        0 0 25px lime;
+    }
+}
+
+.book-btn{
+    display:inline-block;
+    text-decoration:none;
+
+    background:#007bff;
+    color:white;
+
+    padding:10px 25px;
+    border-radius:30px;
+    border:none;
+}
+
+.book-btn:hover{
+    background:#0056b3;
+}
+
+/* FIX CARD BODY */
+.card-body{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+
+    min-height:170px;
+}
+
+/* BUTTON FIX */
+.book-btn{
+    margin-top:15px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.book-btn:hover{
+    transform:scale(1.08);
+}
+
+</style>
+</head>
+
+<body>
+
+<h1 class="page-title">
+🌍 Explore Tourist Places
+</h1>
+
+<div class="container">
+<div class="row g-4">
+
+    <!-- SHIMLA -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/shimla.jpg">
+
+<div class="card-body text-center">
+<h4>Shimla</h4>
+
+<p class="price">
+₹6499
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- KERALA -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/kerala.jpg">
+
+<div class="card-body text-center">
+<h4>Kerala</h4>
+
+<p class="price">
+₹16999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- LADAKH -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/ladakh.jpg">
+
+<div class="card-body text-center">
+<h4>Ladakh</h4>
+
+<p class="price">
+₹19999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- OOTY -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/ooty.jpg">
+
+<div class="card-body text-center">
+<h4>Ooty</h4>
+
+<p class="price">
+₹7999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- MYSORE -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/mysore.jpg">
+
+<div class="card-body text-center">
+<h4>Mysore</h4>
+
+<p class="price">
+₹6599
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- RISHIKESH -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/rishikesh.jpg">
+
+<div class="card-body text-center">
+<h4>Rishikesh</h4>
+
+<p class="price">
+₹4999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- VARANASI -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/varanasi.jpg">
+
+<div class="card-body text-center">
+<h4>Varanasi</h4>
+
+<p class="price">
+₹3999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- GOA -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/goa.jpg">
+
+<div class="card-body text-center">
+<h4>Goa</h4>
+
+<p class="price">
+₹5000
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- MANALI -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/manali.jpg">
+
+<div class="card-body text-center">
+<h4>Manali</h4>
+
+<p class="price">
+₹7999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- TAJ MAHAL -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/tajmahal.jpg">
+
+<div class="card-body text-center">
+<h4>Taj Mahal</h4>
+
+<p class="price">
+₹3999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- BIHAR -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/Bihar.png">
+
+<div class="card-body text-center">
+<h4>Bihar</h4>
+
+<p class="price">
+₹7099
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+<!-- RAJASTHAN -->
+<div class="col-md-3">
+<div class="card place-card">
+
+<img src="images/Rajasthan.png">
+
+<div class="card-body text-center">
+<h4>Rajasthan</h4>
+
+<p class="price">
+₹10999
+</p>
+
+<a href="bookings.html"
+class="book-btn">
+Book Now
+</a>
+
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

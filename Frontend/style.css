@@ -265,3 +265,135 @@ html {
     }
 }
 
+/* GLOWING BUTTONS */
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    margin-top:25px;
+}
+
+.glow-btn{
+    text-decoration:none;
+    background:#fff;
+    color:#007bff;
+    padding:14px 28px;
+    border-radius:30px;
+    font-size:20px;
+    font-weight:bold;
+    transition:0.3s;
+    box-shadow:
+      0 0 10px #fff,
+      0 0 20px #00c6ff,
+      0 0 40px #007bff;
+      
+    animation: glow 1.5s infinite alternate;
+}
+
+.glow-btn:hover{
+    transform: scale(1.08);
+    color:#fff;
+    background:#007bff;
+}
+
+@keyframes glow{
+    from{
+        box-shadow:
+        0 0 10px #fff,
+        0 0 20px #00c6ff;
+    }
+
+    to{
+        box-shadow:
+        0 0 20px #fff,
+        0 0 40px #00c6ff,
+        0 0 60px #007bff;
+    }
+}
+
+/* ===== MODERN HERO SECTION ===== */
+
+.hero{
+    background:
+    linear-gradient(rgba(0,0,0,0.45),
+    rgba(0,0,0,0.45)),
+    url('images/travel-bg.jpg');
+
+    background-size: cover;
+    background-position: center;
+
+    padding: 120px 20px;
+    text-align: center;
+    position: relative;
+}
+
+/* Glass card */
+.hero-content{
+    max-width: 850px;
+    margin: auto;
+
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(15px);
+
+    border-radius: 30px;
+    padding: 50px;
+
+    box-shadow:
+    0 8px 32px rgba(0,0,0,0.25);
+}
+
+/* Hero heading */
+.hero h1{
+    font-size: 58px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Hero subtitle */
+.hero p{
+    color: #f1f1f1;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+/* Travel icons */
+.travel-icons{
+    font-size: 45px;
+    margin-bottom: 20px;
+
+    animation:
+    floatIcons 3s infinite ease-in-out;
+}
+
+@keyframes floatIcons{
+    0%,100%{
+        transform: translateY(0);
+    }
+
+    50%{
+        transform: translateY(-10px);
+    }
+}
+
+/* Mobile responsive */
+@media(max-width:768px){
+
+.hero h1{
+    font-size:38px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+.hero-content{
+    padding:30px;
+}
+
+.hero-buttons{
+    flex-direction:column;
+    align-items:center;
+}
+
+}
