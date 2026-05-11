@@ -3,15 +3,14 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
 const User = require("./models/User");
-
 const app = express();
-
+app.use(express.json());
+const express = require("express");
+const app = express();
+app.use(express.json());
 app.use(cors());
-
 app.use(bodyParser.json());
-
 app.use(express.static("Frontend"));
 
 // MONGODB CONNECTION
@@ -106,7 +105,6 @@ app.get("/guides/:location", async(req,res)=>{
 });
 
 app.listen(5000,()=>{
-
     console.log("Server Running On Port 5000");
 
 });

@@ -160,7 +160,8 @@ async function registerUser(){
         role:document.getElementById("role").value,
         location:document.getElementById("location").value
     };
-    const response = await fetch("/register",{
+    console.log(data);
+    const response = await fetch("http://localhost:5000/register",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -168,6 +169,7 @@ async function registerUser(){
         body:JSON.stringify(data)
     });
     const result = await response.json();
+    console.log(result);
     alert(result.message);
 }
 
@@ -177,7 +179,7 @@ async function loginUser(){
         email:document.getElementById("loginEmail").value,
         password:document.getElementById("loginPassword").value
     };
-    const response = await fetch("/login",{
+    const response = await fetch("http://localhost:5000/login",{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
