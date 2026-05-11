@@ -1,10 +1,7 @@
 /* ICON STYLE - REAL APP LOOK */
-
 html {
   scroll-behavior: smooth;
 }
-
-
 .contact-dropdown a i {
   width: 35px;
   height: 35px;
@@ -104,12 +101,6 @@ html {
   margin-top: 15px;
 }
 
-
-
-/* ===========================
-   TOP HEADER SECTION
-=========================== */
-
 .top-header{
     background:#f5f5f5;
     display:flex;
@@ -168,35 +159,30 @@ html {
       colorMove 8s linear infinite,
       bounce 2s infinite;
 }
-
 /* Plane */
 .plane{
     font-size:70px;
     color:#ffb300;
     animation: flyPlane 2s infinite ease-in-out;
 }
-
 /* Welcome text */
 .welcome-msg{
     font-size:22px;
     margin-top:15px;
     color:#444;
 }
-
 /* Boy animation */
 .left-character{
     animation:
         slideLeft 1.5s ease-out,
         respectMove 2s infinite ease-in-out;
 }
-
 /* Girl animation */
 .right-character{
     animation:
         slideRight 1.5s ease-out,
         respectMove 2s infinite ease-in-out;
 }
-
 /* Slide animation */
 @keyframes slideLeft{
     from{
@@ -378,7 +364,6 @@ html {
 
 /* Mobile responsive */
 @media(max-width:768px){
-
 .hero h1{
     font-size:38px;
 }
@@ -395,5 +380,4 @@ html {
     flex-direction:column;
     align-items:center;
 }
-
 }

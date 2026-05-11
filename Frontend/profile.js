@@ -131,3 +131,11 @@ document.getElementById("guideName").innerText = guide.name;
 document.getElementById("guideImg").src = guide.image;
 document.getElementById("guideDetails").innerText =
 `📍 ${guide.location} | 🗣 ${guide.language} | 💰 ${guide.price} | ⭐ ${guide.rating}`;
+
+const user = JSON.parse(localStorage.getItem("user"));
+document.getElementById("profile").innerHTML = `
+<h2>${user.name}</h2>
+<p>Email: ${user.email}</p>
+<p>Role: ${user.role}</p>
+<p>Location: ${user.location}</p>
+`;

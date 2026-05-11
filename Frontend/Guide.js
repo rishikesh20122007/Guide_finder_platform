@@ -34,3 +34,19 @@ photo:"https://randomuser.me/api/portraits/men/11.jpg"
 }
 
 ];
+
+async function fetchGuides(){
+    const response = await fetch("/guides/Bihar");
+    const guides = await response.json();
+    let data = "";
+    guides.forEach((guide)=>{
+        data += `
+        <div>
+        <h2>${guide.name}</h2>
+        <p>${guide.location}</p>
+        </div>
+        `;
+    });
+    document.getElementById("guides").innerHTML = data;
+}
+fetchGuides();
