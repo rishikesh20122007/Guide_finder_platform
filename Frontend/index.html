@@ -112,16 +112,31 @@
       border-radius:50%;
   }
 
-  .main-title{
-      font-size:70px !important;
-      font-weight:800;
-      margin:0;
-      color:#ff5a00 !important;
+ .main-title{
+    font-size:70px !important;
+    font-weight:800;
+    margin:0;
 
-      animation:
-        colorMove 8s linear infinite,
-        bounce 2s infinite;
-  }
+    background: linear-gradient(
+        90deg,
+        #ff5a00,
+        #ff9900,
+        #ffd700,
+        #ff5a00
+    );
+
+    background-size:300%;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    text-shadow:
+    0 0 15px rgba(255,90,0,0.4);
+
+    animation:
+    glowText 3s infinite alternate,
+    gradientMove 6s linear infinite,
+    bounceTitle 2s infinite;
+}
 
   .welcome-msg{
       font-size:22px;
@@ -188,6 +203,38 @@
           transform:translateY(-10px);
       }
   }
+  /* TEXT COLOR MOVE */
+@keyframes gradientMove{
+    0%{
+        background-position:0%;
+    }
+
+    100%{
+        background-position:300%;
+    }
+}
+
+/* GLOW EFFECT */
+@keyframes glowText{
+    from{
+        filter:drop-shadow(0 0 5px orange);
+    }
+
+    to{
+        filter:drop-shadow(0 0 20px gold);
+    }
+}
+
+/* BOUNCE EFFECT */
+@keyframes bounceTitle{
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
+}
 
   .card{
       border-radius:15px;
