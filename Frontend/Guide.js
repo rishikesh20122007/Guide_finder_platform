@@ -34,61 +34,70 @@ photo:"https://randomuser.me/api/portraits/men/11.jpg"
 }
 
 ];
-const container = document.getElementById("guideContainer");
 
-guides.forEach(guide => {
+// CHECK LOGIN BEFORE BOOKING
+function checkLogin(){
 
-    container.innerHTML += `
-    <div class="col-md-4">
-        <div class="card guide-card">
+    const user =
+    localStorage.getItem("loggedInUser");
 
-            <img src="${guide.photo}" class="card-img-top">
+    if(!user){
 
-            <div class="card-body text-center">
+        alert(
+          "Please Login First"
+        );
 
-                <h5>${guide.name}</h5>
+        window.location.href =
+        "index.html";
 
-                <p>📍 ${guide.location}</p>
+        return false;
+    }
 
-                <p>🗣 ${guide.languages}</p>
+    return true;
+}
 
-                <p>💰 ${guide.price}</p>
 
-                <p>⭐ ${guide.rating}</p>
+// BOOKING FUNCTION
+async function confirmBooking(){
 
-                <button class="btn btn-success"
-                onclick="bookGuide('${guide.name}')">
-                    Book Now
-                </button>
-
-            </div>
-        </div>
-    </div>
-    `;
-});
-
-async function confirmBooking() {
+    // LOGIN CHECK
+    if(!checkLogin()){
+        return;
+    }
 
     const touristName =
-    document.getElementById("userName").value;
+    document.getElementById("touristName").value;
 
     const guideName =
-    selectedGuide;
+    document.getElementById("guideName").value;
 
     const date =
-    document.getElementById("date").value;
+    document.getElementById("bookingDate").value;
 
     const time =
-    document.getElementById("time").value;
+    document.getElementById("bookingTime").value;
 
-    const response = await fetch(
-        "http://localhost:5000/book-guide",
-        {
+    if(
+        !touristName ||
+        !guideName ||
+        !date ||
+        !time
+    ){
+        alert("Please fill all fields");
+        return;
+    }
+
+    try{
+
+        const response =
+        await fetch(
+        "http://localhost:5000/book-guide",{
 
             method:"POST",
 
             headers:{
-                "Content-Type":"application/json"
+                "Content-Type":
+                "application/json"
             },
 
             body:JSON.stringify({
@@ -100,11 +109,25 @@ async function confirmBooking() {
 
             })
 
+        });
+
+        const result =
+        await response.json();
+
+        alert(result.message);
+
+        if(result.success){
+
+            document.getElementById(
+            "bookingForm"
+            ).style.display = "none";
         }
-    );
 
-    const result = await response.json();
+    }
 
-    alert(result.message);
+    catch(error){
 
+        console.log(error);
+        alert("Server Error");
+    }
 }
