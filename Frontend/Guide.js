@@ -34,43 +34,77 @@ photo:"https://randomuser.me/api/portraits/men/11.jpg"
 }
 
 ];
+const container = document.getElementById("guideContainer");
 
-async function confirmBooking(){
+guides.forEach(guide => {
+
+    container.innerHTML += `
+    <div class="col-md-4">
+        <div class="card guide-card">
+
+            <img src="${guide.photo}" class="card-img-top">
+
+            <div class="card-body text-center">
+
+                <h5>${guide.name}</h5>
+
+                <p>📍 ${guide.location}</p>
+
+                <p>🗣 ${guide.languages}</p>
+
+                <p>💰 ${guide.price}</p>
+
+                <p>⭐ ${guide.rating}</p>
+
+                <button class="btn btn-success"
+                onclick="bookGuide('${guide.name}')">
+                    Book Now
+                </button>
+
+            </div>
+        </div>
+    </div>
+    `;
+});
+
+async function confirmBooking() {
 
     const touristName =
-    document.getElementById("touristName").value;
+    document.getElementById("userName").value;
 
     const guideName =
-    document.getElementById("guideName").value;
+    selectedGuide;
 
     const date =
-    document.getElementById("bookingDate").value;
+    document.getElementById("date").value;
 
     const time =
-    document.getElementById("bookingTime").value;
+    document.getElementById("time").value;
 
-    const response = await fetch("http://localhost:5000/book-guide",{
+    const response = await fetch(
+        "http://localhost:5000/book-guide",
+        {
 
-        method:"POST",
+            method:"POST",
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+            headers:{
+                "Content-Type":"application/json"
+            },
 
-        body:JSON.stringify({
+            body:JSON.stringify({
 
-            touristName,
-            guideName,
-            date,
-            time
+                touristName,
+                guideName,
+                date,
+                time
 
-        })
+            })
 
-    });
+        }
+    );
 
     const result = await response.json();
 
     alert(result.message);
 
 }
-fetchGuides();

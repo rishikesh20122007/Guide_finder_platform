@@ -124,8 +124,36 @@ const guides = [
 
 const container = document.getElementById("guideContainer");
 
-guides.forEach(guide => {
-    container.innerHTML += `
+if (container) {
+
+    guides.forEach(guide => {
+
+        container.innerHTML += `
+        <div class="col-md-4">
+            <div class="card guide-card">
+                <img src="${guide.image}" class="card-img-top">
+                <div class="card-body text-center">
+                    <h5>${guide.name}</h5>
+                    <p>📍 ${guide.location}</p>
+                    <p>🗣 ${guide.language}</p>
+                    <p>💰 ${guide.price}</p>
+                    <p>⭐ ${guide.rating}</p>
+
+                    <a href="profile.html?id=${guide.id}" class="btn btn-view mb-2">
+                      View Profile
+                    </a>
+
+                    <button class="btn btn-success"
+                    onclick="bookGuide('${guide.name}')">
+                      Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        `;
+    });
+
+}
     <div class="col-md-4">
         <div class="card guide-card">
             <img src="${guide.image}" class="card-img-top">
