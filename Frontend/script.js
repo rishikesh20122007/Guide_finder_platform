@@ -152,45 +152,70 @@ guides.forEach(guide => {
 
 // REGISTER
 
+
 async function registerUser(){
+
     const data = {
+
         name:document.getElementById("name").value,
+
         email:document.getElementById("email").value,
+
         password:document.getElementById("password").value,
+
         role:document.getElementById("role").value,
+
         location:document.getElementById("location").value
+
     };
+
     console.log(data);
+
     const response = await fetch("http://localhost:5000/register",{
+
         method:"POST",
+
         headers:{
             "Content-Type":"application/json"
         },
+
         body:JSON.stringify(data)
+
     });
+
     const result = await response.json();
+
     console.log(result);
+
     alert(result.message);
+
 }
 
-// login
+
 async function loginUser(){
+
     const data = {
+
         email:document.getElementById("loginEmail").value,
+
         password:document.getElementById("loginPassword").value
+
     };
+
     const response = await fetch("http://localhost:5000/login",{
+
         method:"POST",
+
         headers:{
             "Content-Type":"application/json"
         },
+
         body:JSON.stringify(data)
+
     });
+
     const result = await response.json();
+
     alert(result.message);
-    if(result.success){
-        localStorage.setItem("user",
-        JSON.stringify(result.user));
-        window.location.href="profile.html";
-    }
+
 }
