@@ -115,15 +115,15 @@ async function submitBooking() {
     return;
   }
 
-  const data = {
-    guide: selectedGuide,
-    user: user,
+    const data = {
+    guideName:   selectedGuide,  // ← change "guide" to "guideName"
+    touristName: user,           // ← change "user" to "touristName"
     date: date,
     time: time
-  };
+};
 
   try {
-    const res = await fetch("http://localhost:5000/book", {
+    const res = await fetch("http://localhost:5000/book-guide", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
