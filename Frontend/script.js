@@ -157,38 +157,41 @@ async function registerUser(){
 
     const data = {
 
-        name:document.getElementById("name").value,
+        name:
+        document.getElementById("name").value,
 
-        email:document.getElementById("email").value,
+        email:
+        document.getElementById("email").value,
 
-        password:document.getElementById("password").value,
+        password:
+        document.getElementById("password").value,
 
-        role:document.getElementById("role").value,
-
-        location:document.getElementById("location").value
-
+        aadhaar:
+        document.getElementById("aadhaar").value
     };
 
-    console.log(data);
-
-    const response = await fetch("http://localhost:5000/register",{
+    const response =
+    await fetch(
+    "http://localhost:5000/register",{
 
         method:"POST",
 
         headers:{
-            "Content-Type":"application/json"
+            "Content-Type":
+            "application/json"
         },
 
         body:JSON.stringify(data)
-
     });
 
-    const result = await response.json();
-
-    console.log(result);
+    const result =
+    await response.json();
 
     alert(result.message);
 
+    if(result.success){
+        showLogin();
+    }
 }
 
 
@@ -216,6 +219,71 @@ async function loginUser(){
 
     const result = await response.json();
 
-    alert(result.message);
+    if(result.success){
 
+    localStorage.setItem(
+        "loggedInUser",
+        JSON.stringify(result.user)
+    );
+
+    alert("Login Successful");
+
+} else {
+
+    alert(result.message);
+}
+
+}
+function checkLogin(){
+
+    const user =
+    localStorage.getItem("loggedInUser");
+
+    if(!user){
+
+        alert(
+          "Please Login First to Book Guide"
+        );
+
+        document
+        .querySelector(".auth-container")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+        return false;
+    }
+
+    return true;
+}
+
+function openBooking(){
+
+    if(!checkLogin()){
+        return;
+    }
+
+    window.location.href =
+    "guides.html";
+}
+function showRegister(){
+
+    document.getElementById(
+    "loginBox"
+    ).style.display = "none";
+
+    document.getElementById(
+    "registerBox"
+    ).style.display = "block";
+}
+
+function showLogin(){
+
+    document.getElementById(
+    "registerBox"
+    ).style.display = "none";
+
+    document.getElementById(
+    "loginBox"
+    ).style.display = "block";
 }

@@ -35,7 +35,35 @@ photo:"https://randomuser.me/api/portraits/men/11.jpg"
 
 ];
 
+// CHECK LOGIN BEFORE BOOKING
+function checkLogin(){
+
+    const user =
+    localStorage.getItem("loggedInUser");
+
+    if(!user){
+
+        alert(
+          "Please Login First"
+        );
+
+        window.location.href =
+        "index.html";
+
+        return false;
+    }
+
+    return true;
+}
+
+
+// BOOKING FUNCTION
 async function confirmBooking(){
+
+    // LOGIN CHECK
+    if(!checkLogin()){
+        return;
+    }
 
     const touristName =
     document.getElementById("touristName").value;
@@ -49,28 +77,57 @@ async function confirmBooking(){
     const time =
     document.getElementById("bookingTime").value;
 
-    const response = await fetch("http://localhost:5000/book-guide",{
+    if(
+        !touristName ||
+        !guideName ||
+        !date ||
+        !time
+    ){
+        alert("Please fill all fields");
+        return;
+    }
 
-        method:"POST",
+    try{
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+        const response =
+        await fetch(
+        "http://localhost:5000/book-guide",{
 
-        body:JSON.stringify({
+            method:"POST",
 
-            touristName,
-            guideName,
-            date,
-            time
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
 
-        })
+            body:JSON.stringify({
 
-    });
+                touristName,
+                guideName,
+                date,
+                time
 
-    const result = await response.json();
+            })
 
-    alert(result.message);
+        });
 
+        const result =
+        await response.json();
+
+        alert(result.message);
+
+        if(result.success){
+
+            document.getElementById(
+            "bookingForm"
+            ).style.display = "none";
+        }
+
+    }
+
+    catch(error){
+
+        console.log(error);
+        alert("Server Error");
+    }
 }
-fetchGuides();

@@ -115,6 +115,9 @@ function bookGuide() {
   const today = new Date().toISOString().split("T")[0];
   document.getElementById("date").min = today;
 }
+function closeForm() {
+    document.getElementById("bookingForm").style.display = "none";
+}
 
 async function submitBooking() {
   const guide    = document.getElementById("guideName").innerText;
