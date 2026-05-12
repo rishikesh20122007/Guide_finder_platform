@@ -35,18 +35,42 @@ photo:"https://randomuser.me/api/portraits/men/11.jpg"
 
 ];
 
-async function fetchGuides(){
-    const response = await fetch("/guides/Bihar");
-    const guides = await response.json();
-    let data = "";
-    guides.forEach((guide)=>{
-        data += `
-        <div>
-        <h2>${guide.name}</h2>
-        <p>${guide.location}</p>
-        </div>
-        `;
+async function confirmBooking(){
+
+    const touristName =
+    document.getElementById("touristName").value;
+
+    const guideName =
+    document.getElementById("guideName").value;
+
+    const date =
+    document.getElementById("bookingDate").value;
+
+    const time =
+    document.getElementById("bookingTime").value;
+
+    const response = await fetch("http://localhost:5000/book-guide",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            touristName,
+            guideName,
+            date,
+            time
+
+        })
+
     });
-    document.getElementById("guides").innerHTML = data;
+
+    const result = await response.json();
+
+    alert(result.message);
+
 }
 fetchGuides();
