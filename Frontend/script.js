@@ -141,7 +141,7 @@ guides.forEach(guide => {
                 </a>
 
             <button class="btn btn-success"
-              onclick="bookGuide('${guide.name}')">
+             onclick="checkLoginAndBook('${guide.name}')"
                   Book Now
                 </button>
             </div>
@@ -286,4 +286,24 @@ function showLogin(){
     document.getElementById(
     "loginBox"
     ).style.display = "block";
+}
+function checkLoginAndBook(guideName){
+
+    const loggedInUser =
+    localStorage.getItem("user");
+
+    if(!loggedInUser){
+
+        alert("⚠ Please login first");
+
+        document
+        .querySelector(".auth-container")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+
+        return;
+    }
+
+    bookGuide(guideName);
 }
