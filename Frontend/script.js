@@ -122,33 +122,41 @@ const guides = [
 
 ];
 
-const container = document.getElementById("guideContainer");
+const container =
+document.getElementById("guideContainer");
 
-guides.forEach(guide => {
-    container.innerHTML += `
-    <div class="col-md-4">
-        <div class="card guide-card">
-            <img src="${guide.image}" class="card-img-top">
-            <div class="card-body text-center">
-                <h5>${guide.name}</h5>
-                <p>📍 ${guide.location}</p>
-                <p>🗣 ${guide.language}</p>
-                <p>💰 ${guide.price}</p>
-                <p>⭐ ${guide.rating}</p>
+// Only run on guides.html
+if(container){
 
-                <a href="profile.html?id=${guide.id}" class="btn btn-view mb-2">
-                  View Profile
-                </a>
+    guides.forEach(guide => {
 
-            <button class="btn btn-success"
-             onclick="checkLoginAndBook('${guide.name}')"
-                  Book Now
-                </button>
+        container.innerHTML += `
+        <div class="col-md-4">
+            <div class="card guide-card">
+                <img src="${guide.image}" class="card-img-top">
+
+                <div class="card-body text-center">
+                    <h5>${guide.name}</h5>
+                    <p>📍 ${guide.location}</p>
+                    <p>🗣 ${guide.language}</p>
+                    <p>💰 ${guide.price}</p>
+                    <p>⭐ ${guide.rating}</p>
+
+                    <a href="profile.html?id=${guide.id}"
+                    class="btn btn-view mb-2">
+                        View Profile
+                    </a>
+
+                    <button class="btn btn-success"
+                    onclick="checkLoginAndBook('${guide.name}')">
+                      Book Now
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    `;
-});
+        `;
+    });
+}
 
 // REGISTER
 
@@ -199,13 +207,15 @@ async function loginUser(){
 
     const data = {
 
-        email:document.getElementById("loginEmail").value,
+        email:
+        document.getElementById("loginEmail").value,
 
-        password:document.getElementById("loginPassword").value
-
+        password:
+        document.getElementById("loginPassword").value
     };
 
-    const response = await fetch("http://localhost:5000/login",{
+    const response =
+    await fetch("http://localhost:5000/login",{
 
         method:"POST",
 
@@ -214,48 +224,41 @@ async function loginUser(){
         },
 
         body:JSON.stringify(data)
-
     });
 
-    const result = await response.json();
+    const result =
+    await response.json();
 
     if(result.success){
 
-    localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify(result.user)
-    );
-
-    alert("Login Successful");
-
-} else {
-
-    alert(result.message);
-}
-
-}
-function checkLogin(){
-
-    const user =
-    localStorage.getItem("loggedInUser");
-
-    if(!user){
-
-        alert(
-          "Please Login First to Book Guide"
+        localStorage.setItem(
+            "loggedInUser",
+            JSON.stringify(result.user)
         );
 
-        document
-        .querySelector(".auth-container")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
+        alert("Login Successful");
 
-        return false;
+        window.location.href =
+        "guides.html";
+
+    } else {
+
+        alert(result.message);
+    }
+}
+/*function checkLoginAndBook(guideName){
+
+    const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+    if(!loggedInUser){
+
+        alert("⚠ Please login first");
+        return;
     }
 
-    return true;
-}
+    bookGuide(guideName);
+}*/
 
 function openBooking(){
 
@@ -290,20 +293,20 @@ function showLogin(){
 function checkLoginAndBook(guideName){
 
     const loggedInUser =
-    localStorage.getItem("user");
+    localStorage.getItem("loggedInUser");
 
+    // If not logged in
     if(!loggedInUser){
 
-        alert("⚠ Please login first");
+        alert("⚠ Please Login First");
 
-        document
-        .querySelector(".auth-container")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
+        // Go to login page
+        window.location.href =
+        "index.html";
 
         return;
     }
 
+    // If logged in → open booking
     bookGuide(guideName);
 }

@@ -2,171 +2,255 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Guide Finder</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
-body {
-    background-color: #f5f7fa;
+body{
+    background-image:
+    url('images/mesut-kaya-eOcyhe5-9sQ-unsplash (1).jpg');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    min-height: 100vh;
 }
 
-body {
-  background-image: url('images/mesut-kaya-eOcyhe5-9sQ-unsplash (1).jpg');
-  background-size: cover; /* Ensures the image covers the whole screen */
-  background-position: center;
-  background-repeat: repeat;
-  height: 100vh;
+.guide-card{
+    border:2px solid #313131;
+    border-radius:50px;
+    overflow:hidden;
+    transition:0.5s;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
 }
 
-.guide-card {
-    border: 2px solid #313131;
-    border-radius: 50px;
-    overflow:auto;
-    transition: 0.5s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.guide-card:hover{
+    transform:translateY(-15px);
 }
 
-.guide-card:hover {
-    transform: translateY(-15px);
+.guide-card img{
+    height:220px;
+    object-fit:cover;
 }
 
-.guide-card img {
-    height: 220px;
-    object-fit:fill;
-}
-
-.btn-view {
-    background: #018bfd;
-    color: white;
+.btn-view{
+    background:#018bfd;
+    color:white;
 }
 </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">GuideFinder</a>
-        </div>
-    </nav>
-    <div class="container py-5">
-    <h2 class="text-center mb-5">🌍 Available Local Guides</h2>
-    <div class="row g-4" id="guideContainer"></div>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand"
+        href="index.html">
+        GuideFinder
+        </a>
     </div>
-    <script src="script.js"></script>
-    <!-- Booking Popup -->
+</nav>
 
-<div id="bookingForm" style="
-  display:none;
-  position:fixed;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  box-shadow:0 0 10px gray;
-  z-index:1000;
+<div class="container py-5">
+
+    <h2 class="text-center mb-5">
+        🌍 Available Local Guides
+    </h2>
+
+    <div class="row g-4"
+    id="guideContainer">
+    </div>
+
+</div>
+
+<!-- Booking Popup -->
+<div id="bookingForm"
+style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+z-index:1000;
 ">
-  <h3 id="guideTitle">Book Guide</h3>
-  <input type="text" id="userName" class="form-control mb-2" placeholder="Your Name">
-  <input type="date" id="date" class="form-control mb-2" id="date">
 
-<select id="time" class="form-select mb-2">
-    <option value="">Select Time</option>
-    <option value="10:00 AM">10:00 AM</option>
-    <option value="11:00 AM">11:00 AM</option>
-    <option value="12:00 PM">12:00 PM</option>
-    <option value="02:00 PM">02:00 PM</option>
-    <option value="04:00 PM">04:00 PM</option>
+<h3 id="guideTitle">
+Book Guide
+</h3>
+
+<input
+type="text"
+id="userName"
+class="form-control mb-2"
+placeholder="Your Name">
+
+<input
+type="date"
+id="date"
+class="form-control mb-2">
+
+<select id="time"
+class="form-select mb-2">
+
+<option value="">
+Select Time
+</option>
+
+<option>10:00 AM</option>
+<option>11:00 AM</option>
+<option>12:00 PM</option>
+<option>02:00 PM</option>
+<option>04:00 PM</option>
+
 </select>
 
-  <button class="btn btn-success w-100 mb-2" onclick="submitBooking()">Confirm Booking</button>
-  <button class="btn btn-danger w-100" onclick="closeForm()">Cancel</button>
+<button
+class="btn btn-success w-100 mb-2"
+onclick="submitBooking()">
+
+Confirm Booking
+
+</button>
+
+<button
+class="btn btn-danger w-100"
+onclick="closeForm()">
+
+Cancel
+
+</button>
+
 </div>
-<!-- fetching guide details... -->
-<h1>Available Guides</h1>
-<div id="guides"></div>
-<script src="Guide.js"></script>
 
 <script>
+
 let selectedGuide = "";
 
-function bookGuide(name) {
-  selectedGuide = name;
-  document.getElementById("guideTitle").innerText = "Book " + name;
-  document.getElementById("bookingForm").style.display = "block";
-  document.body.style.overflow = "hidden";
+function bookGuide(name){
 
-  // ✅ Disable all past dates
-  const today = new Date().toISOString().split("T")[0];
-  document.getElementById("date").min = today;
+    selectedGuide = name;
+
+    document.getElementById(
+    "guideTitle"
+    ).innerText =
+    "Book " + name;
+
+    document.getElementById(
+    "bookingForm"
+    ).style.display =
+    "block";
+
+    document.body.style.overflow =
+    "hidden";
+
+    const today =
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+    document.getElementById(
+    "date"
+    ).min = today;
 }
 
-function closeForm() {
-  document.getElementById("bookingForm").style.display = "none";
-  document.body.style.overflow = "auto";
+function closeForm(){
+
+    document.getElementById(
+    "bookingForm"
+    ).style.display =
+    "none";
+
+    document.body.style.overflow =
+    "auto";
 }
 
-async function submitBooking() {
-  const user = document.getElementById("userName").value;
-  const date = document.getElementById("date").value;
-  const time = document.getElementById("time").value;
+async function submitBooking(){
 
-if (!user || !date || !time) {
-    alert("❌ Please fill all fields");
-    return;
-}
+    const user =
+    document.getElementById(
+    "userName"
+    ).value;
 
-// ✅ Time validation for today's bookings
-const today = new Date().toISOString().split("T")[0];
+    const date =
+    document.getElementById(
+    "date"
+    ).value;
 
-if (date === today) {
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
+    const time =
+    document.getElementById(
+    "time"
+    ).value;
 
-    const selectedHour = parseInt(time.split(":")[0]);
-    const selectedMinute = parseInt(time.split(":")[1]) || 0;
+    if(!user || !date || !time){
 
-    // Convert both to total minutes for easy comparison
-    const currentTotalMinutes = (currentHour * 60) + currentMinute;
-    const selectedTotalMinutes = (selectedHour * 60) + selectedMinute;
+        alert(
+        "❌ Please fill all fields"
+        );
 
-    // Must book at least 1 hour ahead
-    if (selectedTotalMinutes < currentTotalMinutes + 60) {
-        alert("❌ You must book at least 1 hour from now!\n⏰ Current time: " 
-            + now.getHours() + ":" 
-            + String(now.getMinutes()).padStart(2,"0"));
         return;
+    }
+
+    const data = {
+
+        guideName:
+        selectedGuide,
+
+        touristName:
+        user,
+
+        date:
+        date,
+
+        time:
+        time
+    };
+
+    try{
+
+        const res =
+        await fetch(
+        "http://localhost:5000/book-guide",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:
+            JSON.stringify(data)
+        });
+
+        const result =
+        await res.json();
+
+        alert(
+        result.message ||
+        "✅ Booking successful"
+        );
+
+        closeForm();
+
+    }catch(error){
+
+        alert(
+        "❌ Server error"
+        );
     }
 }
 
-    const data = {
-    guideName:   selectedGuide,  // ← change "guide" to "guideName"
-    touristName: user,           // ← change "user" to "touristName"
-    date: date,
-    time: time
-};
+</script>
 
-  try {
-    const res = await fetch("http://localhost:5000/book-guide", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+<script src="script.js"></script>
 
-    const result = await res.json();
-    alert(result.message || "✅ Booking successful");
-
-    closeForm();
-  } catch (error) {
-    alert("❌ Server error");
-  }
-}
-</script> 
 </body>
 </html>
