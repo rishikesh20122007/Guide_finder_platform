@@ -155,7 +155,7 @@ async function submitBooking() {
   };
 
   try {
-    const res = await fetch("http://localhost:5000/book-guide", {  // ✅ fixed
+    const res = await fetch("https://guide-finder-platform.onrender.com/book-guide", {  // ✅ fixed
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)

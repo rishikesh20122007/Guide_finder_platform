@@ -91,7 +91,7 @@ async function confirmBooking(){
 
         const response =
         await fetch(
-        "http://localhost:5000/book-guide",{
+        "https://guide-finder-platform.onrender.com/book-guide",{
 
             method:"POST",
 

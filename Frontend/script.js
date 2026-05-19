@@ -180,7 +180,7 @@ async function registerUser(){
 
     const response =
     await fetch(
-    "http://localhost:5000/register",{
+    "https://guide-finder-platform.onrender.com/register",{
 
         method:"POST",
 
@@ -215,7 +215,7 @@ async function loginUser(){
     };
 
     const response =
-    await fetch("http://localhost:5000/login",{
+    await fetch("https://guide-finder-platform.onrender.com/login",{
 
         method:"POST",
 
