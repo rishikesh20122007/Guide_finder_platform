@@ -24,7 +24,9 @@ app.use(express.static(path.join(__dirname,"Frontend")));
 // MONGODB CONNECTION
 // =======================================
 
-mongoose.connect("mongodb://127.0.0.1:27017/guidefinder")
+require("dotenv").config();
+
+mongoose.connect(process.env.MONGO_URI)
 
 .then(() => {
 
