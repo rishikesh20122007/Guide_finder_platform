@@ -150,10 +150,11 @@ body{
 ₹6499
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Shimla')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -172,10 +173,11 @@ Book Now
 ₹16999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Kerala')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -194,10 +196,11 @@ Book Now
 ₹19999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Ladakh')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -216,10 +219,11 @@ Book Now
 ₹7999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Ooty')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -238,10 +242,11 @@ Book Now
 ₹6599
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Mysore')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -260,10 +265,11 @@ Book Now
 ₹4999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Rishikesh')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -282,10 +288,11 @@ Book Now
 ₹3999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Varanasi')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -304,10 +311,11 @@ Book Now
 ₹5000
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Goa')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -326,10 +334,11 @@ Book Now
 ₹7999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Manali')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -348,10 +357,11 @@ Book Now
 ₹3999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Taj Mahal')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -370,10 +380,11 @@ Book Now
 ₹7099
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Bihar')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -392,10 +403,11 @@ Book Now
 ₹10999
 </p>
 
-<a href="bookings.html"
-class="book-btn">
+<button
+class="book-btn"
+onclick="bookPlace('Rajasthan')">
 Book Now
-</a>
+</button>
 
 </div>
 </div>
@@ -404,5 +416,302 @@ Book Now
 </div>
 </div>
 
+<!-- BOOKING MODAL -->
+<div class="modal fade" id="bookingModal">
+<div class="modal-dialog modal-lg">
+<div class="modal-content rounded-4">
+
+<div class="modal-header bg-primary text-white">
+<h4>Book Tour</h4>
+<button
+type="button"
+class="btn-close btn-close-white"
+data-bs-dismiss="modal">
+</button>
+</div>
+
+<div class="modal-body">
+
+<h5 id="selectedPlace"></h5>
+
+<label class="fw-bold">
+How Many Members?
+</label>
+
+<select
+id="memberCount"
+class="form-control mb-3"
+onchange="generateMembers()">
+
+<option value="">
+Select Members
+</option>
+
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+
+</select>
+
+<div id="membersContainer"></div>
+
+<label class="fw-bold mt-3">
+Travel Date
+</label>
+
+<input
+type="date"
+id="travelDate"
+class="form-control">
+
+<label class="fw-bold mt-3">
+Time Slot
+</label>
+
+<select
+id="timeSlot"
+class="form-control">
+
+<option value="">
+Select Time
+</option>
+
+<option>10:00 AM</option>
+<option>12:00 PM</option>
+<option>2:00 PM</option>
+<option>4:00 PM</option>
+<option>6:00 PM</option>
+
+</select>
+
+</div>
+
+<div class="modal-footer">
+<button
+class="btn btn-success"
+onclick="submitBooking()">
+
+Confirm Booking
+
+</button>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+
+let selectedPlaceName = "";
+
+function bookPlace(placeName){
+
+    const loggedInUser =
+    JSON.parse(
+    localStorage.getItem("loggedInUser")
+    );
+
+    if(!loggedInUser){
+
+        alert("Please Login First");
+        window.location.href =
+        "index.html";
+        return;
+    }
+
+    selectedPlaceName = placeName;
+    const today =
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+    document.getElementById(
+    "travelDate"
+    ).min = today;
+
+    document.getElementById(
+    "selectedPlace"
+    ).innerText =
+    "Place: " + placeName;
+
+    new bootstrap.Modal(
+    document.getElementById(
+    "bookingModal"
+    )).show();
+}
+
+
+function generateMembers(){
+
+    const count =
+    document.getElementById(
+    "memberCount"
+    ).value;
+
+    const container =
+    document.getElementById(
+    "membersContainer"
+    );
+
+    container.innerHTML = "";
+
+    for(let i=1;i<=count;i++){
+
+container.innerHTML += `
+
+    <div class="border p-3 rounded mb-3 bg-light shadow-sm">
+
+    <h5 class="text-primary">
+    Member ${i}
+    </h5>
+
+    <div class="row">
+
+    <div class="col-md-6">
+    <input
+    type="text"
+    id="name${i}"
+    class="form-control"
+    placeholder="👤 Member Name">
+    </div>
+
+    <div class="col-md-6">
+    <input
+    type="number"
+    id="whatsapp${i}"
+    class="form-control"
+    placeholder="📱 WhatsApp Number">
+    </div>
+
+    </div>
+
+    </div>
+
+    `;
+    }
+}
+
+
+async function submitBooking(){
+
+    const loggedInUser =
+    JSON.parse(
+    localStorage.getItem(
+    "loggedInUser"
+    ));
+
+    const members =
+    document.getElementById(
+    "memberCount"
+    ).value;
+
+    const travelDate =
+    document.getElementById(
+    "travelDate"
+    ).value;
+
+    const timeSlot =
+    document.getElementById(
+    "timeSlot"
+    ).value;
+
+    const memberDetails = [];
+
+    for(let i=1;i<=members;i++){
+
+        const name =
+        document.getElementById(
+        `name${i}`
+        ).value;
+
+        const whatsapp =
+        document.getElementById(
+        `whatsapp${i}`
+        ).value;
+
+        if(!name || !whatsapp){
+
+            alert(
+            "Fill all member details"
+            );
+
+            return;
+        }
+
+        memberDetails.push({
+            name,
+            whatsapp
+        });
+    }
+
+    if(!travelDate ||
+       !timeSlot){
+
+        alert(
+        "Select Date and Time"
+        );
+
+        return;
+    }
+
+    try{
+
+        const response =
+        await fetch(
+        "https://guide-finder-platform.onrender.com/book-guide",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+body:JSON.stringify({
+
+    placeName:
+    selectedPlaceName,
+
+    totalMembers:
+    members,
+
+    members:
+    memberDetails,
+
+    bookedBy:
+    loggedInUser.name,
+
+    date:
+    travelDate,
+
+    time:
+    timeSlot
+})
+        });
+
+        const result =
+        await response.json();
+
+        alert(
+        "Booking Successful ✅"
+        );
+
+        location.reload();
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+        "Booking Failed"
+        );
+    }
+}
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

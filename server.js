@@ -68,13 +68,24 @@ const User = mongoose.model("User",UserSchema);
 
 const BookingSchema = new mongoose.Schema({
 
-    touristName:String,
+    placeName:String,
 
-    guideName:String,
+    totalMembers:Number,
+
+    members:[
+
+        {
+            name:String,
+            whatsapp:String
+        }
+
+    ],
 
     date:String,
 
     time:String,
+
+    bookedBy:String,
 
     status:{
         type:String,
@@ -271,41 +282,34 @@ app.post("/book-guide", async(req,res)=>{
 
     try{
 
-        console.log(req.body);
-
         const {
 
-            touristName,
-            guideName,
+            placeName,
+            totalMembers,
+            members,
             date,
-            time
+            time,
+            bookedBy
 
         } = req.body;
 
-
-        // CREATE BOOKING
-
         const newBooking = new Booking({
 
-            touristName,
-            guideName,
+            placeName,
+            totalMembers,
+            members,
             date,
-            time
+            time,
+            bookedBy
 
         });
 
-
-        // SAVE BOOKING
-
         await newBooking.save();
-
-        console.log("Booking Saved");
-
 
         res.json({
 
             success:true,
-            message:"Booking Successful"
+            message:"✅ Booking Successful"
 
         });
 
@@ -318,7 +322,7 @@ app.post("/book-guide", async(req,res)=>{
         res.json({
 
             success:false,
-            message:"Server Error"
+            message:"❌ Server Error"
 
         });
 
