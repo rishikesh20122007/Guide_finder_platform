@@ -109,11 +109,45 @@ Cancel
 
 <script>
 function bookGuide() {
-  document.getElementById("bookingForm").style.display = "block";
 
-  // ✅ Disable past dates
-  const today = new Date().toISOString().split("T")[0];
-  document.getElementById("date").min = today;
+  const loggedInUser =
+  JSON.parse(
+    localStorage.getItem(
+      "loggedInUser"
+    )
+  );
+
+  // if not logged in
+  if(!loggedInUser){
+
+    alert("Please Login First");
+
+    // save previous page
+    localStorage.setItem(
+      "redirectAfterLogin",
+      window.location.href
+    );
+
+    // open login page
+      // open home page login
+        window.location.href = "index.html#login-section";  // put your actual login file name
+
+    return;
+  }
+
+  document.getElementById(
+    "bookingForm"
+  ).style.display = "block";
+
+  // disable past date
+  const today =
+  new Date()
+  .toISOString()
+  .split("T")[0];
+
+  document.getElementById(
+    "date"
+  ).min = today;
 }
 function closeForm() {
     document.getElementById("bookingForm").style.display = "none";

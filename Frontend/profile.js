@@ -125,17 +125,64 @@ const guides = [
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-const guide = guides.find(g => g.id == id);
+// Show guide profile only if id exists
+if(id){
 
-document.getElementById("guideName").innerText = guide.name;
-document.getElementById("guideImg").src = guide.image;
-document.getElementById("guideDetails").innerText =
-`📍 ${guide.location} | 🗣 ${guide.language} | 💰 ${guide.price} | ⭐ ${guide.rating}`;
+    const guide = guides.find(g => g.id == id);
 
-const user = JSON.parse(localStorage.getItem("user"));
-document.getElementById("profile").innerHTML = `
+    if(guide){
+
+        document.getElementById(
+        "guideName"
+        ).innerText = guide.name;
+
+        document.getElementById(
+        "guideImg"
+        ).src = guide.image;
+
+        document.getElementById(
+        "guideDetails"
+        ).innerText =
+        `📍 ${guide.location} | 🗣 ${guide.language} | 💰 ${guide.price} | ⭐ ${guide.rating}`;
+
+    }
+
+}else{
+
+    // Hide guide section if no id
+    const guideSection =
+    document.querySelector(".guide-container");
+
+    if(guideSection){
+        guideSection.style.display =
+        "none";
+    }
+}
+
+const user =
+JSON.parse(
+localStorage.getItem("loggedInUser")
+);
+
+// if user not logged in
+if(user){
+
+            document.getElementById(
+            "profile"
+            ).innerHTML = `
+            <h2>${user.name}</h2>
+            <p>Email: ${user.email}</p>
+            <p>Mobile: ${user.mobile || "Not Added"}</p>
+            <p>Email: ${user.email || "Not Added"}</p>
+            <p>Aadhaar: ${user.aadhaar || "Not Added"}</p>
+            <p>Aadhar No: ${user.aadhaar}</p>
+            <p>Role: ${user.role}</p>
+            <p>Location: ${user.location}</p>
+            `;
+}
+/*document.getElementById("profile").innerHTML = `
 <h2>${user.name}</h2>
 <p>Email: ${user.email}</p>
 <p>Role: ${user.role}</p>
 <p>Location: ${user.location}</p>
-`;
+`;*/

@@ -48,7 +48,7 @@ function checkLogin(){
         );
 
         window.location.href =
-        "index.html";
+        "index.html#login-section";
 
         return false;
     }
@@ -116,12 +116,32 @@ async function confirmBooking(){
 
         alert(result.message);
 
-        if(result.success){
+                if(result.success){
 
-            document.getElementById(
-            "bookingForm"
-            ).style.display = "none";
-        }
+                // save booking in localStorage
+                let bookings =
+                JSON.parse(
+                localStorage.getItem(
+                "myBookings"
+                )) || [];
+
+                bookings.push({
+
+                guideName,
+                date,
+                time
+
+                });
+
+                localStorage.setItem(
+                "myBookings",
+                JSON.stringify(bookings)
+                );
+
+                document.getElementById(
+                "bookingForm"
+                ).style.display = "none";
+                }
 
     }
 

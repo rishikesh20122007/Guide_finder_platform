@@ -1,3 +1,7 @@
+require("dotenv").config();
+
+console.log(process.env.MONGO_URI);
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -13,18 +17,20 @@ const app = express();
 
 app.use(express.json());
 
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({
+    extended: true
+}));
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname,"Frontend")));
+app.use(express.static(
+    path.join(__dirname, "Frontend")
+));
 
 
 // =======================================
 // MONGODB CONNECTION
 // =======================================
-
-require("dotenv").config();
 
 mongoose.connect(process.env.MONGO_URI)
 
@@ -50,6 +56,8 @@ const UserSchema = new mongoose.Schema({
     name:String,
 
     email:String,
+
+    mobile:String,
 
     password:String,
 
@@ -118,20 +126,26 @@ app.post("/register", async(req,res)=>{
 
         console.log(req.body);
 
-        const {
+            const {
 
-            name,
-            email,
-            password,
-            role,
-            location
+                name,
+                email,
+                mobile,
+                password,
+                role,
+                location
 
-        } = req.body;
+            } = req.body;
 
 
         // CHECK EXISTING USER
 
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({
+    $or: [
+        { email: email },
+        { mobile: mobile }
+    ]
+});
 
         if(existingUser){
 
@@ -153,15 +167,17 @@ app.post("/register", async(req,res)=>{
 
         // CREATE USER
 
-        const newUser = new User({
+            const newUser = new User({
 
-            name,
-            email,
-            password:hashedPassword,
-            role,
-            location
+                name,
+                email,
+                mobile,
+                password: hashedPassword,
+                aadhar,
+                role,
+                location
 
-        });
+            });
 
 
         // SAVE USER
@@ -204,17 +220,19 @@ app.post("/login", async(req,res)=>{
 
     try{
 
-        const {
-
-            email,
-            password
-
-        } = req.body;
+      const { loginInput, password } = req.body;
+      console.log(loginInput);
 
 
         // FIND USER
 
-        const user = await User.findOne({ email });
+         const user = await User.findOne({
+            $or: [
+                { email: loginInput.trim() },
+                { mobile: loginInput.trim() }
+            ]
+        });
+        console.log("User Found:", user);
 
         if(!user){
 
@@ -247,6 +265,7 @@ app.post("/login", async(req,res)=>{
 
 
         // LOGIN SUCCESS
+        console.log(user);
 
         res.json({
 

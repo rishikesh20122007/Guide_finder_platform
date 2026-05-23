@@ -293,11 +293,41 @@
   </button>
     <div class="collapse navbar-collapse" id="nav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
-        <li class="nav-item"><a class="nav-link" href="#footer">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#footer-contact">Contact</a></li>
-      </ul>
+
+        <li class="nav-item">
+        <a class="nav-link" href="index.html">
+        Home
+        </a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link" href="guides.html">
+        Guides
+        </a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link" href="#footer">
+        About
+        </a>
+        </li>
+
+        <li class="nav-item">
+        <a class="nav-link" href="#footer-contact">
+        Contact
+        </a>
+        </li>
+
+        <!-- PROFILE BUTTON -->
+          <li class="nav-item">
+          <a class="nav-link"
+          href="#"
+          onclick="openProfile()">
+          Profile
+          </a>
+          </li>
+
+        </ul>
     </div>
   </div>
 </nav>
@@ -313,7 +343,7 @@
       <h1 class="main-title">Guide Finder Platform</h1>
       <span class="plane">✈</span>
     </div>
-      <p class="welcome-msg">Welcome to the Guide Finder Platform!</p>
+      
     </div>
     <div class="character right-character">
       <img src="images/girl.png">
@@ -414,7 +444,7 @@
 </div>
 
 <!-- // AUTHENTICATION of guides and tourists -->
-<div class="auth-container">
+<div id="login-section" class="auth-container">
 
 <h1>Login</h1>
 
@@ -422,9 +452,9 @@
 <div id="loginBox">
 
 <input
-type="email"
-id="loginEmail"
-placeholder="Enter Email">
+type="text"
+id="loginInput"
+placeholder="Enter Email or Mobile Number">
 
 <input
 type="password"
@@ -438,7 +468,7 @@ Login
 <p style="margin-top:15px;">
 Don't have an account?
 
-<a href="#"
+<a href="javascript:void(0)"
 onclick="showRegister()"
 style="
 color:#1e90ff;
@@ -464,9 +494,14 @@ id="name"
 placeholder="Full Name">
 
 <input
-type="text"
+type="email"
 id="email"
-placeholder="Email / Mobile Number">
+placeholder="Enter Email">
+
+<input
+type="text"
+id="mobile"
+placeholder="Enter Mobile Number">
 
 <input
 type="password"
@@ -476,7 +511,7 @@ placeholder="Enter Password">
 <input
 type="text"
 id="aadhaar"
-placeholder="Aadhaar Number">
+placeholder="Enter Aadhaar Number">
 
 <button onclick="registerUser()">
 Register
@@ -486,7 +521,7 @@ Register
 
 Already have an account?
 
-<a href="#"
+<a href="javascript:void(0)"
 onclick="showLogin()"
 style="
 color:#1e90ff;

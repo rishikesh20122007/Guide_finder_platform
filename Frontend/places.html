@@ -512,13 +512,15 @@ function bookPlace(placeName){
     localStorage.getItem("loggedInUser")
     );
 
-    if(!loggedInUser){
+if(!loggedInUser){
 
-        alert("Please Login First");
-        window.location.href =
-        "index.html";
-        return;
-    }
+    alert("Please Login First");
+
+    window.location.href =
+    "index.html#login-section";
+
+    return;
+}
 
     selectedPlaceName = placeName;
     const today =

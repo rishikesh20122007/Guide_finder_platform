@@ -136,15 +136,41 @@ let selectedGuide = "";
 
 function bookGuide(name){
 
+    const user = JSON.parse(
+        localStorage.getItem(
+            "loggedInUser"
+        )
+    );
+
+    // if not logged in
+    if(!user){
+
+        alert(
+            "Please Login First"
+        );
+
+        // save current page
+        localStorage.setItem(
+            "redirectAfterLogin",
+            window.location.href
+        );
+
+        // go to login/register page
+        window.location.href =
+        "profile.html";
+
+        return;
+    }
+
     selectedGuide = name;
 
     document.getElementById(
-    "guideTitle"
+        "guideTitle"
     ).innerText =
     "Book " + name;
 
     document.getElementById(
-    "bookingForm"
+        "bookingForm"
     ).style.display =
     "block";
 
@@ -157,7 +183,7 @@ function bookGuide(name){
     .split("T")[0];
 
     document.getElementById(
-    "date"
+        "date"
     ).min = today;
 }
 

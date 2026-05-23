@@ -163,87 +163,197 @@ if(container){
 
 async function registerUser(){
 
-    const data = {
+    const name =
+    document.getElementById(
+    "name"
+    ).value.trim();
 
-        name:
-        document.getElementById("name").value,
+    const email =
+    document.getElementById(
+    "email"
+    ).value.trim();
 
-        email:
-        document.getElementById("email").value,
+    const mobile =
+    document.getElementById(
+    "mobile"
+    ).value.trim();
 
-        password:
-        document.getElementById("password").value,
+    const password =
+    document.getElementById(
+    "password"
+    ).value.trim();
 
-        aadhaar:
-        document.getElementById("aadhaar").value
-    };
+    const aadhaar =
+    document.getElementById(
+    "aadhaar"
+    ).value.trim();
 
-    const response =
-    await fetch(
-    "https://guide-finder-platform.onrender.com/register",{
 
-        method:"POST",
+    // email validation
+    const emailRegex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        headers:{
-            "Content-Type":
-            "application/json"
-        },
+    if(!emailRegex.test(email)){
 
-        body:JSON.stringify(data)
-    });
+        alert(
+        "Please enter valid email"
+        );
 
-    const result =
-    await response.json();
+        return;
+    }
 
-    alert(result.message);
 
-    if(result.success){
-        showLogin();
+    // mobile validation
+    const mobileRegex =
+    /^[0-9]{10}$/;
+
+    if(!mobileRegex.test(mobile)){
+
+        alert(
+        "Mobile number must be 10 digits"
+        );
+
+        return;
+    }
+
+
+    // aadhaar validation
+    const aadhaarRegex =
+    /^[0-9]{12}$/;
+
+    if(!aadhaarRegex.test(aadhaar)){
+
+        alert(
+        "Aadhaar must be 12 digits"
+        );
+
+        return;
+    }
+
+
+        const data = {
+            name,
+            email,
+            mobile: mobile.trim(),
+            password,
+            role: "Tourist",
+            location: "India"
+        };
+
+    try{
+
+        const res =
+        await fetch(
+        "http://localhost:5000/register",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:
+            JSON.stringify(data)
+        });
+
+        const result =
+        await res.json();
+
+        alert(result.message);
+
+    }catch(error){
+
+        alert(
+        "Server Error"
+        );
     }
 }
 
 
 async function loginUser(){
 
+    const loginInput =
+    document.getElementById(
+    "loginInput"
+    ).value.trim();
+
+    const password =
+    document.getElementById(
+    "loginPassword"
+    ).value.trim();
+
     const data = {
-
-        email:
-        document.getElementById("loginEmail").value,
-
-        password:
-        document.getElementById("loginPassword").value
+        loginInput,
+        password
     };
 
-    const response =
-    await fetch("https://guide-finder-platform.onrender.com/login",{
+    try{
 
-        method:"POST",
+        const res =
+        await fetch(
+        "http://localhost:5000/login",{
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+            method:"POST",
 
-        body:JSON.stringify(data)
-    });
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
 
-    const result =
-    await response.json();
+            body:
+            JSON.stringify(data)
+        });
 
-    if(result.success){
+        const result =
+        await res.json();
 
-        localStorage.setItem(
-            "loggedInUser",
-            JSON.stringify(result.user)
+        if(result.success){
+
+                localStorage.setItem(
+                "loggedInUser",
+                JSON.stringify({
+                    name: result.user.name,
+                    email: result.user.email,
+                    mobile: result.user.mobile,
+                    aadhaar: result.user.aadhaar
+                })
+                );
+
+            alert(
+            "Login Successful"
+            );
+
+            const redirectPage =
+            localStorage.getItem(
+            "redirectAfterLogin"
+            );
+
+            if(redirectPage){
+
+                localStorage.removeItem(
+                "redirectAfterLogin"
+                );
+
+                window.location.href =
+                redirectPage;
+
+                }else{
+
+                    window.location.href =
+                    "index.html";
+                }
+
+        }else{
+
+            alert(result.message);
+        }
+
+    }catch(error){
+
+        alert(
+        "Server Error"
         );
-
-        alert("Login Successful");
-
-        window.location.href =
-        "guides.html";
-
-    } else {
-
-        alert(result.message);
     }
 }
 /*function checkLoginAndBook(guideName){
@@ -269,6 +379,62 @@ function openBooking(){
     window.location.href =
     "guides.html";
 }
+/*function showRegister(){
+
+    document.getElementById(
+    "loginBox"
+    ).style.display = "none";
+
+    document.getElementById(
+    "registerBox"
+    ).style.display = "block";
+
+    // scroll to login/register section
+    window.location.href =
+    "index.html#login-section";
+}
+
+
+function showLogin(){
+
+    document.getElementById(
+    "registerBox"
+    ).style.display = "none";
+
+    document.getElementById(
+    "loginBox"
+    ).style.display = "block";
+
+    // scroll to login section
+    window.location.href =
+    "index.html#login-section";
+}*/
+function checkLoginAndBook(guideName){
+
+    const loggedInUser =
+    localStorage.getItem("loggedInUser");
+
+    // If user not logged in
+    if(!loggedInUser){
+
+        alert("Please Login First");
+
+        // Save current page
+         localStorage.setItem(
+            "redirectAfterLogin",
+             "guides.html"
+        );
+
+                // Go to home page
+                window.location.href =
+                "index.html#login-section";
+
+        return;
+    }
+
+    // If logged in
+    bookGuide(guideName);
+}
 function showRegister(){
 
     document.getElementById(
@@ -278,6 +444,12 @@ function showRegister(){
     document.getElementById(
     "registerBox"
     ).style.display = "block";
+
+    document.getElementById(
+    "login-section"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
 }
 
 function showLogin(){
@@ -289,24 +461,59 @@ function showLogin(){
     document.getElementById(
     "loginBox"
     ).style.display = "block";
+
+    document.getElementById(
+    "login-section"
+    ).scrollIntoView({
+        behavior:"smooth"
+    });
 }
-function checkLoginAndBook(guideName){
+
+function openProfile(){
 
     const loggedInUser =
     localStorage.getItem("loggedInUser");
 
-    // If not logged in
+    // if not logged in
     if(!loggedInUser){
 
-        alert("⚠ Please Login First");
+        alert("Please Login First");
 
-        // Go to login page
+        // save action
+        localStorage.setItem(
+            "openLoginSection",
+            "true"
+        );
+
+        // go homepage
         window.location.href =
         "index.html";
 
         return;
     }
 
-    // If logged in → open booking
-    bookGuide(guideName);
+    // if logged in
+    window.location.href =
+    "userProfile.html";
+}
+
+window.onload = function(){
+
+    const shouldOpenLogin =
+    localStorage.getItem(
+    "openLoginSection"
+    );
+
+    if(shouldOpenLogin === "true"){
+
+        localStorage.removeItem(
+        "openLoginSection"
+        );
+
+        document.getElementById(
+        "login-section"
+        ).scrollIntoView({
+            behavior:"smooth"
+        });
+    }
 }

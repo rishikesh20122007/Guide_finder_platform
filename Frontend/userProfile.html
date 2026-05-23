@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>User Profile</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+    background:#f5f5f5;
+}
+
+.profile-card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 10px gray;
+    margin-top:50px;
+}
+
+.option-btn{
+    width:100%;
+    margin-top:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="profile-card">
+
+<h2 class="text-center">
+My Profile
+</h2>
+
+<hr>
+
+<h4 id="userName"></h4>
+<p id="userEmail"></p>
+
+<!-- BUTTONS -->
+
+<button
+class="btn btn-primary option-btn"
+onclick="showBookings()">
+
+My Booking
+
+</button>
+
+<button
+class="btn btn-warning option-btn"
+onclick="showDocuments()">
+
+Documents
+
+</button>
+
+<button
+class="btn btn-danger option-btn"
+onclick="logout()">
+
+Logout
+
+</button>
+
+<hr>
+
+<!-- OUTPUT -->
+<div id="contentBox"></div>
+
+</div>
+</div>
+
+<script>
+
+const user =
+JSON.parse(
+localStorage.getItem(
+"loggedInUser"
+));
+
+if(!user){
+
+alert("Please Login First");
+
+window.location.href =
+"profile.html";
+}
+
+document.getElementById(
+"userName"
+).innerText =
+"Name: " + user.name;
+
+document.getElementById(
+"userEmail"
+).innerText = "";
+
+
+// MY BOOKINGS
+function showBookings(){
+
+const bookings =
+JSON.parse(
+localStorage.getItem(
+"myBookings"
+)) || [];
+
+if(bookings.length === 0){
+
+document.getElementById(
+"contentBox"
+).innerHTML =
+"<h4>No Booking Found</h4>";
+
+return;
+}
+
+document.getElementById(
+"contentBox"
+).innerHTML =
+bookings.map(b => `
+
+<div class="card p-3 mb-3">
+
+<h5>${b.guideName}</h5>
+
+<p>Date: ${b.date}</p>
+
+<p>Time: ${b.time}</p>
+
+</div>
+
+`).join("");
+}
+
+
+// DOCUMENTS
+function showDocuments(){
+
+document.getElementById(
+"contentBox"
+).innerHTML = `
+
+<h4>Documents</h4>
+
+<p>
+Mobile:
+${user.mobile || "Not Added"}
+</p>
+
+<p>
+Email:
+${user.email || "Not Added"}
+</p>
+
+<p>
+Aadhaar:
+${user.aadhaar || "Not Added"}
+</p>
+
+`;
+}
+
+
+// LOGOUT
+function logout(){
+
+localStorage.removeItem(
+"loggedInUser"
+);
+
+alert(
+"Logged Out Successfully"
+);
+
+window.location.href =
+"index.html#login-section";
+}
+
+</script>
+
+</body>
+</html>
