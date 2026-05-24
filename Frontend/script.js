@@ -520,7 +520,7 @@ window.onload = function(){
 }
 let visibleReviews = 3;
 
-function submitFeedback(){
+async function submitFeedback(){
 
     const name =
     document.getElementById(
@@ -533,59 +533,124 @@ function submitFeedback(){
     ).value.trim();
 
     const rating =
+    parseInt(
     document.getElementById(
     "feedbackRating"
-    ).value;
+    ).value
+    );
 
     if(!name || !feedback){
 
         alert(
         "Please fill all fields"
         );
+
         return;
     }
 
-    const reviews =
-    JSON.parse(
-    localStorage.getItem(
-    "reviews"
-    )) || [];
+    try{
 
-    reviews.push({
-        name,
-        feedback,
-        rating:
-        parseInt(rating)
-    });
+        const res =
+        await fetch(
 
-    // highest rating first
-    reviews.sort(
-    (a,b)=>
-    b.rating-a.rating
-    );
+        "https://guide-finder-platform.onrender.com/feedback",
 
-    localStorage.setItem(
-    "reviews",
-    JSON.stringify(reviews)
-    );
+        {
 
-    loadReviews();
+            method:"POST",
 
-    alert(
-    "Thank you for your feedback ❤️"
-    );
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
 
-    document.getElementById(
-    "feedbackName"
-    ).value = "";
+            body:
+            JSON.stringify({
 
-    document.getElementById(
-    "feedbackText"
-    ).value = "";
+                name,
+                feedback,
+                rating
 
-    document.getElementById(
-    "feedbackRating"
-    ).selectedIndex = 0;
+            })
+
+        });
+
+        const data =
+        await res.json();
+
+        alert(
+        data.message
+        );
+
+        loadReviews();
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        alert(
+        "Server Error"
+        );
+
+    }
+}
+
+async function loadReviews(){
+
+    try{
+
+        const res =
+        await fetch(
+
+        "https://guide-finder-platform.onrender.com/feedback"
+
+        );
+
+        const reviews =
+        await res.json();
+
+        const container =
+        document.getElementById(
+        "reviewContainer"
+        );
+
+        container.innerHTML = "";
+
+        reviews.forEach(review=>{
+
+            container.innerHTML += `
+
+            <div class="col-md-4">
+
+                <div class="review-card">
+
+                <p>
+                "${review.feedback}"
+                </p>
+
+                <h6>
+
+                ⭐ ${review.rating}
+                - ${review.name}
+
+                </h6>
+
+                </div>
+
+            </div>
+
+            `;
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
 }
 
 function loadReviews(){
@@ -634,3 +699,7 @@ window.addEventListener(
 "load",
 loadReviews
 );
+window.onload = function(){
+
+    loadReviews();
+}

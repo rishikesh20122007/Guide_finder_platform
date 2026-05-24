@@ -99,6 +99,26 @@ const BookingSchema = new mongoose.Schema({
 });
 
 const Booking = mongoose.model("Booking",BookingSchema);
+// =======================================
+// FEEDBACK SCHEMA
+// =======================================
+
+const FeedbackSchema =
+new mongoose.Schema({
+
+    name:String,
+
+    feedback:String,
+
+    rating:Number
+
+});
+
+const Feedback =
+mongoose.model(
+"Feedback",
+FeedbackSchema
+);
 
 
 // =======================================
@@ -346,6 +366,93 @@ app.post("/book-guide", async(req,res)=>{
 
 });
 
+
+// =======================================
+// SAVE FEEDBACK API
+// =======================================
+
+app.post(
+"/feedback",
+async(req,res)=>{
+
+    try{
+
+        const {
+
+            name,
+            feedback,
+            rating
+
+        } = req.body;
+
+        const newFeedback =
+        new Feedback({
+
+            name,
+            feedback,
+            rating
+
+        });
+
+        await newFeedback.save();
+
+        res.json({
+
+            success:true,
+            message:
+            "Feedback Saved"
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res.json({
+
+            success:false,
+            message:
+            "Server Error"
+
+        });
+
+    }
+
+});
+// =======================================
+// GET FEEDBACK API
+// =======================================
+
+app.get(
+"/feedback",
+async(req,res)=>{
+
+    try{
+
+        const feedbacks =
+        await Feedback
+        .find()
+        .sort({
+            rating:-1
+        });
+
+        res.json(
+        feedbacks
+        );
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+        res.json([]);
+
+    }
+
+});
 
 // =======================================
 // GET ALL GUIDES
