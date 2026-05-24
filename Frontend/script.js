@@ -241,34 +241,34 @@ async function registerUser(){
                 location: "India"
             };
 
-    try{
+try{
 
-        const res =
-        await fetch(
-        "http://localhost:5000/register",{
+    const res =
+    await fetch(
+    "https://guide-finder-platform.onrender.com/register",{
 
-            method:"POST",
+        method:"POST",
 
-            headers:{
-                "Content-Type":
-                "application/json"
-            },
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
 
-            body:
-            JSON.stringify(data)
-        });
+        body:
+        JSON.stringify(data)
+    });
 
-        const result =
-        await res.json();
+    const result =
+    await res.json();
 
-        alert(result.message);
+    alert(result.message);
 
-    }catch(error){
+}catch(error){
 
-        alert(
-        "Server Error"
-        );
-    }
+    console.log(error);
+
+    alert("Server Error");
+}
 }
 
 
@@ -292,8 +292,8 @@ async function loginUser(){
     try{
 
         const res =
-        await fetch(
-        "http://localhost:5000/login",{
+            await fetch(
+            "https://guide-finder-platform.onrender.com/login",{
 
             method:"POST",
 
