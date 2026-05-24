@@ -304,6 +304,49 @@ async function submitBooking(){
         );
     }
 }
+function submitFeedback(){
+
+    const name =
+    document.getElementById(
+    "feedbackName"
+    ).value.trim();
+
+    const feedback =
+    document.getElementById(
+    "feedbackText"
+    ).value.trim();
+
+    const rating =
+    document.getElementById(
+    "feedbackRating"
+    ).value.trim();
+
+    if(!name || !feedback || !rating){
+
+        alert(
+        "Please fill all fields"
+        );
+
+        return;
+    }
+
+    alert(
+    "Thank you for your feedback ❤️"
+    );
+
+    // clear form
+    document.getElementById(
+    "feedbackName"
+    ).value = "";
+
+    document.getElementById(
+    "feedbackText"
+    ).value = "";
+
+    document.getElementById(
+    "feedbackRating"
+    ).value = "";
+}
 
 </script>
 

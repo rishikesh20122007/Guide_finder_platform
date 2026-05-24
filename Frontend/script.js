@@ -518,3 +518,33 @@ window.onload = function(){
         });
     }
 }
+function submitFeedback(){
+
+    const name =
+    document.getElementById(
+    "feedbackName"
+    ).value.trim();
+
+    const feedback =
+    document.getElementById(
+    "feedbackText"
+    ).value.trim();
+
+    const rating =
+    document.getElementById(
+    "feedbackRating"
+    ).value;
+
+    if(!name || !feedback){
+
+        alert(
+        "Please fill all fields"
+        );
+
+        return;
+    }
+
+    alert(
+    "Thank you for your feedback ❤️"
+    );
+}

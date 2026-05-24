@@ -575,9 +575,20 @@ Login
 <h2 class="text-center mb-4">📝 Share Your Experience</h2>
 <div class="row justify-content-center">
 <div class="col-md-6">
-<input type="text" class="form-control mb-2" placeholder="Your Name">
-<textarea class="form-control mb-2" placeholder="Your Feedback"></textarea>
-<select class="form-control mb-2">
+    <input
+    type="text"
+    id="feedbackName"
+    class="form-control mb-2"
+    placeholder="Your Name">
+
+    <textarea
+    id="feedbackText"
+    class="form-control mb-2"
+    placeholder="Your Feedback"></textarea>
+
+    <select
+    id="feedbackRating"
+    class="form-control mb-2">
 <option> Rating ⭐</option>
 <option>5 ⭐⭐⭐⭐⭐</option>
 <option>4 ⭐⭐⭐⭐</option>
@@ -585,7 +596,13 @@ Login
 <option>2 ⭐⭐</option>
 <option>1 ⭐</option>
 </select>
-<button class="btn btn-primary w-100">Submit Feedback</button>
+    <button
+    class="btn btn-primary w-100"
+    onclick="submitFeedback()">
+
+    Submit Feedback
+
+    </button>
 </div>
 </div>
 </div>
@@ -614,7 +631,7 @@ copyright &copy; 2026 Guide Finder Platform. All rights reserved.</p>
 <footer id="footer"
 class="bg-dark text-white text-center p-4">
 <p>Welcome to the Guide Finder Platform!
-Here you can find experienced guides
+  Here you can find experienced guides
 to help you explore new places and cultures. 
 Guides are available for various destinations and interests.
 here we help you connect with the best guides for your next adventure!
