@@ -518,6 +518,8 @@ window.onload = function(){
         });
     }
 }
+let visibleReviews = 3;
+
 function submitFeedback(){
 
     const name =
@@ -540,11 +542,95 @@ function submitFeedback(){
         alert(
         "Please fill all fields"
         );
-
         return;
     }
+
+    const reviews =
+    JSON.parse(
+    localStorage.getItem(
+    "reviews"
+    )) || [];
+
+    reviews.push({
+        name,
+        feedback,
+        rating:
+        parseInt(rating)
+    });
+
+    // highest rating first
+    reviews.sort(
+    (a,b)=>
+    b.rating-a.rating
+    );
+
+    localStorage.setItem(
+    "reviews",
+    JSON.stringify(reviews)
+    );
+
+    loadReviews();
 
     alert(
     "Thank you for your feedback ❤️"
     );
+
+    document.getElementById(
+    "feedbackName"
+    ).value = "";
+
+    document.getElementById(
+    "feedbackText"
+    ).value = "";
+
+    document.getElementById(
+    "feedbackRating"
+    ).selectedIndex = 0;
 }
+
+function loadReviews(){
+
+    const container =
+    document.getElementById(
+    "reviewContainer"
+    );
+
+    if(!container) return;
+
+    const reviews =
+    JSON.parse(
+    localStorage.getItem(
+    "reviews"
+    )) || [];
+
+    container.innerHTML = "";
+
+    reviews
+    .slice(0, visibleReviews)
+    .forEach(review => {
+
+        container.innerHTML += `
+        <div class="col-md-4">
+            <div class="review-card">
+                <p>"${review.feedback}"</p>
+                <h6>
+                ⭐ ${review.rating}
+                - ${review.name}
+                </h6>
+            </div>
+        </div>
+        `;
+    });
+}
+
+function showMoreReviews(){
+
+    visibleReviews += 3;
+
+    loadReviews();
+}
+
+window.addEventListener(
+"load",
+loadReviews
+);
