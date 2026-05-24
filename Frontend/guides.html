@@ -259,6 +259,35 @@ async function submitBooking(){
         const result =
         await res.json();
 
+        // SAVE BOOKING IN LOCALSTORAGE
+        let bookings =
+        JSON.parse(
+        localStorage.getItem(
+        "myBookings"
+        )) || [];
+
+        bookings.push({
+
+            guideName:
+            selectedGuide,
+
+            date:
+            date,
+
+            time:
+            time
+        });
+
+        localStorage.setItem(
+        "myBookings",
+        JSON.stringify(bookings)
+        );
+
+        console.log(
+        localStorage.getItem(
+        "myBookings"
+        ));
+
         alert(
         result.message ||
         "✅ Booking successful"
@@ -267,6 +296,8 @@ async function submitBooking(){
         closeForm();
 
     }catch(error){
+
+        console.log(error);
 
         alert(
         "❌ Server error"

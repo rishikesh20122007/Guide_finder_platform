@@ -59,6 +59,7 @@ function checkLogin(){
 
 // BOOKING FUNCTION
 async function confirmBooking(){
+    console.log("Booking Function Running");
 
     // LOGIN CHECK
     if(!checkLogin()){
@@ -89,9 +90,16 @@ async function confirmBooking(){
 
     try{
 
+        // API URL
+        const API_URL =
+        window.location.hostname === "127.0.0.1"
+        ? "http://localhost:5000"
+        : "https://guide-finder-platform.onrender.com";
+
+        // Send booking request
         const response =
         await fetch(
-        "https://guide-finder-platform.onrender.com/book-guide",{
+        `${API_URL}/book-guide`,{
 
             method:"POST",
 
@@ -113,35 +121,45 @@ async function confirmBooking(){
 
         const result =
         await response.json();
+        console.log(response.status);
+        console.log(response.ok);
+        console.log(result);
+
+        console.log(result);
 
         alert(result.message);
 
-                if(result.success){
+        if(true){
 
-                // save booking in localStorage
-                let bookings =
-                JSON.parse(
-                localStorage.getItem(
-                "myBookings"
-                )) || [];
+            // Create booking object
+            const bookingData = {
+                guideName: guideName,
+                date: date,
+                time: time
+            };
 
-                bookings.push({
+            // Get old bookings
+            let bookings =
+            JSON.parse(
+            localStorage.getItem("myBookings")
+            ) || [];
 
-                guideName,
-                date,
-                time
+            // Add new booking
+            bookings.push(bookingData);
 
-                });
-
-                localStorage.setItem(
+            // Save to localStorage
+            localStorage.setItem(
                 "myBookings",
                 JSON.stringify(bookings)
-                );
+            );
 
-                document.getElementById(
-                "bookingForm"
-                ).style.display = "none";
-                }
+            console.log("Saved Successfully");
+            console.log(
+            localStorage.getItem("myBookings")
+            );
+
+            alert("Booking Successful");
+        }
 
     }
 

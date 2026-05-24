@@ -231,14 +231,15 @@ async function registerUser(){
     }
 
 
-        const data = {
-            name,
-            email,
-            mobile: mobile.trim(),
-            password,
-            role: "Tourist",
-            location: "India"
-        };
+            const data = {
+                name,
+                email,
+                mobile: mobile.trim(),
+                password,
+                aadhaar,   // add this line
+                role: "Tourist",
+                location: "India"
+            };
 
     try{
 

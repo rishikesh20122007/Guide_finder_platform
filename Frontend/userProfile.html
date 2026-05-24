@@ -103,9 +103,11 @@ document.getElementById(
 
 document.getElementById(
 "userEmail"
-).innerText = "";
+).innerText =
+"Email: " + user.email;
 
 
+// MY BOOKINGS
 // MY BOOKINGS
 function showBookings(){
 
@@ -114,6 +116,8 @@ JSON.parse(
 localStorage.getItem(
 "myBookings"
 )) || [];
+
+console.log("Bookings:", bookings);
 
 if(bookings.length === 0){
 
@@ -125,10 +129,11 @@ document.getElementById(
 return;
 }
 
-document.getElementById(
-"contentBox"
-).innerHTML =
-bookings.map(b => `
+let bookingHTML = "";
+
+bookings.forEach(b => {
+
+bookingHTML += `
 
 <div class="card p-3 mb-3">
 
@@ -140,7 +145,14 @@ bookings.map(b => `
 
 </div>
 
-`).join("");
+`;
+
+});
+
+document.getElementById(
+"contentBox"
+).innerHTML =
+bookingHTML;
 }
 
 

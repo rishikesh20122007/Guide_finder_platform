@@ -51,21 +51,17 @@ mongoose.connect(process.env.MONGO_URI)
 // USER SCHEMA
 // =======================================
 
-const UserSchema = new mongoose.Schema({
+            const UserSchema = new mongoose.Schema({
 
-    name:String,
+                name:String,
+                email:String,
+                mobile:String,
+                password:String,
+                aadhaar:String,
+                role:String,
+                location:String
 
-    email:String,
-
-    mobile:String,
-
-    password:String,
-
-    role:String,
-
-    location:String
-
-});
+            });
 
 const User = mongoose.model("User",UserSchema);
 
@@ -126,16 +122,17 @@ app.post("/register", async(req,res)=>{
 
         console.log(req.body);
 
-            const {
+                const {
 
-                name,
-                email,
-                mobile,
-                password,
-                role,
-                location
+                    name,
+                    email,
+                    mobile,
+                    password,
+                    aadhaar,
+                    role,
+                    location
 
-            } = req.body;
+                } = req.body;
 
 
         // CHECK EXISTING USER
@@ -173,7 +170,7 @@ app.post("/register", async(req,res)=>{
                 email,
                 mobile,
                 password: hashedPassword,
-                aadhar,
+                aadhaar,
                 role,
                 location
 
