@@ -531,10 +531,7 @@ window.onload = function(){
 }
 let visibleReviews = 3;
 
-
 async function submitFeedback(){
-
-function submitFeedback(){
 
     const name =
     document.getElementById(
@@ -674,7 +671,7 @@ function loadReviews(){
     "reviewContainer"
     );
 
-=======
+
     const reviews =
     JSON.parse(
     localStorage.getItem(
@@ -725,7 +722,7 @@ function loadReviews(){
     "reviewContainer"
     );
 
->>>>>>> backup-guidefinder
+
     if(!container) return;
 
     const reviews =
@@ -769,9 +766,8 @@ loadReviews
 window.onload = function(){
 
     loadReviews();
-
-async function guideLogin(){
-
+};
+    async function guideLogin(){
     const loginInput =
     document.getElementById(
     "loginInput"
@@ -1034,5 +1030,83 @@ Book Now
 });
 
 });
->>>>>>> backup-guidefinder
+
+}
+const sortPrice =
+document.getElementById(
+"sortPrice"
+);
+
+if(sortPrice){
+
+sortPrice.addEventListener(
+"change",
+function(){
+
+let sortedGuides =
+[...guides];
+
+if(this.value === "low"){
+
+sortedGuides.sort(
+(a,b)=>
+parseInt(a.price.replace("₹","")) -
+parseInt(b.price.replace("₹",""))
+);
+
+}
+
+else if(this.value === "high"){
+
+sortedGuides.sort(
+(a,b)=>
+parseInt(b.price.replace("₹","")) -
+parseInt(a.price.replace("₹",""))
+);
+
+}
+
+const container =
+document.getElementById(
+"guideContainer"
+);
+
+container.innerHTML = "";
+
+sortedGuides.forEach(guide => {
+
+container.innerHTML += `
+<div class="col-md-4">
+<div class="card guide-card">
+
+<img src="${guide.image}"
+class="card-img-top">
+
+<div class="card-body text-center">
+
+<h5>${guide.name}</h5>
+
+<p>📍 ${guide.location}</p>
+<p>🗣 ${guide.language}</p>
+<p>💰 ${guide.price}</p>
+<p>⭐ ${guide.rating}</p>
+
+<a href="profile.html?id=${guide.id}"
+class="btn btn-view mb-2">
+View Profile
+</a>
+
+<button
+class="btn btn-success"
+onclick="checkLoginAndBook('${guide.name}')">
+Book Now
+</button>
+
+</div>
+</div>
+</div>
+`;
+});
+
+});
 }
