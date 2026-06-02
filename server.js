@@ -175,6 +175,12 @@ NotificationSchema
 );
 
 const Booking = mongoose.model("Booking",BookingSchema);
+const GuideBooking =
+mongoose.model(
+"GuideBooking",
+BookingSchema,
+"guidebookings"
+);
 // =======================================
 // FEEDBACK SCHEMA
 // =======================================
@@ -582,6 +588,23 @@ app.post("/book-guide", async(req,res)=>{
         });
 
         await newBooking.save();
+
+                const newGuideBooking =
+                new GuideBooking({
+
+                    guideId,
+                    guideName,
+                    placeName,
+                    totalMembers,
+                    members,
+                    date,
+                    time,
+                    bookedBy,
+                    amount
+
+                });
+
+                await newGuideBooking.save();
 
         res.json({
 
