@@ -531,11 +531,10 @@ window.onload = function(){
 }
 let visibleReviews = 3;
 
-<<<<<<< HEAD
+
 async function submitFeedback(){
-=======
+
 function submitFeedback(){
->>>>>>> backup-guidefinder
 
     const name =
     document.getElementById(
@@ -562,7 +561,7 @@ function submitFeedback(){
         return;
     }
 
-<<<<<<< HEAD
+
     try{
 
         const res =
@@ -766,11 +765,11 @@ window.addEventListener(
 "load",
 loadReviews
 );
-<<<<<<< HEAD
+
 window.onload = function(){
 
     loadReviews();
-=======
+
 async function guideLogin(){
 
     const loginInput =
