@@ -419,7 +419,7 @@
 <div class="container py-5">
   <h2 class="text-center mb-4">💬 What Our Users Say</h2>
 
-  <div class="row g-4">
+  <div class="row g-4" id="reviewContainer">
     <div class="col-md-4">
       <div class="review-card">
         <p>"Amazing experience! The guide was very friendly and knowledgeable."</p>
@@ -439,8 +439,20 @@
         <p>"Booking was smooth and guide was professional."</p>
         <h6>⭐ 4.7 - Arjun</h6>
       </div>
+
     </div>
   </div>
+        <div class="text-center mt-3">
+
+          <button
+          class="btn btn-primary"
+          onclick="showMoreReviews()">
+
+          Show More
+
+          </button>
+
+      </div>
 </div>
 
 <!-- // AUTHENTICATION of guides and tourists -->
@@ -590,11 +602,11 @@ Login
     id="feedbackRating"
     class="form-control mb-2">
 <option> Rating ⭐</option>
-<option>5 ⭐⭐⭐⭐⭐</option>
-<option>4 ⭐⭐⭐⭐</option>
-<option>3 ⭐⭐⭐</option>
-<option>2 ⭐⭐</option>
-<option>1 ⭐</option>
+    <option value="5">5 ⭐⭐⭐⭐⭐</option>
+    <option value="4">4 ⭐⭐⭐⭐</option>
+    <option value="3">3 ⭐⭐⭐</option>
+    <option value="2">2 ⭐⭐</option>
+    <option value="1">1 ⭐</option>
 </select>
     <button
     class="btn btn-primary w-100"
