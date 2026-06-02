@@ -136,7 +136,14 @@ if(container){
                 <img src="${guide.image}" class="card-img-top">
 
                 <div class="card-body text-center">
-                    <h5>${guide.name}</h5>
+                    <h5>
+                    ${guide.name}
+
+                    ${guide.id <= 5 ?
+                    '<span style="color:green;font-size:14px;"> ✔ Verified</span>'
+                    : ''}
+
+                    </h5>
                     <p>📍 ${guide.location}</p>
                     <p>🗣 ${guide.language}</p>
                     <p>💰 ${guide.price}</p>
@@ -187,6 +194,10 @@ async function registerUser(){
     document.getElementById(
     "aadhaar"
     ).value.trim();
+    const role =
+        document.getElementById(
+        "role"
+        ).value;
 
 
     // email validation
@@ -237,7 +248,7 @@ async function registerUser(){
                 mobile: mobile.trim(),
                 password,
                 aadhaar,   // add this line
-                role: "Tourist",
+                role,
                 location: "India"
             };
 
@@ -634,3 +645,268 @@ window.addEventListener(
 "load",
 loadReviews
 );
+async function guideLogin(){
+
+    const loginInput =
+    document.getElementById(
+    "loginInput"
+    ).value.trim();
+
+    const password =
+    document.getElementById(
+    "loginPassword"
+    ).value.trim();
+
+    if(!loginInput || !password){
+
+        alert(
+        "Enter Email & Password"
+        );
+
+        return;
+    }
+
+    const data = {
+        loginInput,
+        password
+    };
+
+    try{
+
+        const res =
+        await fetch(
+        "https://guide-finder-platform.onrender.com/login",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+
+            body:
+            JSON.stringify(data)
+        });
+
+        const result =
+        await res.json();
+
+        console.log(result);
+
+        if(result.success){
+
+            // Check guide account
+            if(
+            result.user.role !==
+            "Guide"
+            ){
+
+                alert(
+                "This is not a Guide account"
+                );
+
+                return;
+            }
+
+            // Save guide
+            localStorage.setItem(
+
+                "loggedInGuide",
+
+                JSON.stringify(
+                result.user
+                )
+            );
+
+            alert(
+            "Guide Login Successful"
+            );
+
+            window.location.href =
+            "guideDashboard.html";
+
+        }else{
+
+            alert(result.message);
+        }
+
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+        "Server Error"
+        );
+    }
+}
+
+// LANGUAGE FILTER
+
+const languageFilter =
+document.getElementById(
+"languageFilter"
+);
+
+if(languageFilter){
+
+languageFilter.addEventListener(
+"change",
+function(){
+
+const selectedLanguage =
+this.value;
+
+const container =
+document.getElementById(
+"guideContainer"
+);
+
+container.innerHTML = "";
+
+let filteredGuides =
+guides;
+
+if(selectedLanguage){
+
+filteredGuides =
+guides.filter(guide =>
+
+guide.language
+.toLowerCase()
+.includes(
+selectedLanguage.toLowerCase()
+)
+
+);
+
+}
+
+filteredGuides.forEach(guide => {
+
+container.innerHTML += `
+<div class="col-md-4">
+<div class="card guide-card">
+
+<img src="${guide.image}"
+class="card-img-top">
+
+<div class="card-body text-center">
+
+    <h5>
+        ${guide.name}
+
+        ${guide.id <= 5 ?
+        '<span style="color:green;font-size:14px;"> ✔ Verified</span>'
+        : ''}
+
+        </h5>
+
+<p>📍 ${guide.location}</p>
+
+<p>🗣 ${guide.language}</p>
+
+<p>💰 ${guide.price}</p>
+
+<p>⭐ ${guide.rating}</p>
+
+<a href="profile.html?id=${guide.id}"
+class="btn btn-view mb-2">
+View Profile
+</a>
+
+<button
+class="btn btn-success"
+onclick="checkLoginAndBook('${guide.name}')">
+Book Now
+</button>
+
+</div>
+</div>
+</div>
+`;
+
+});
+
+});
+}
+
+const searchGuide =
+document.getElementById(
+"searchGuide"
+);
+
+if(searchGuide){
+
+searchGuide.addEventListener(
+"keyup",
+function(){
+
+const searchText =
+this.value.toLowerCase();
+
+const container =
+document.getElementById(
+"guideContainer"
+);
+
+container.innerHTML = "";
+
+const filteredGuides =
+guides.filter(guide =>
+
+guide.name
+.toLowerCase()
+.includes(searchText)
+
+||
+
+guide.location
+.toLowerCase()
+.includes(searchText)
+
+||
+
+guide.language
+.toLowerCase()
+.includes(searchText)
+
+);
+
+filteredGuides.forEach(guide => {
+
+container.innerHTML += `
+<div class="col-md-4">
+<div class="card guide-card">
+
+<img src="${guide.image}"
+class="card-img-top">
+
+<div class="card-body text-center">
+
+<h5>${guide.name}</h5>
+
+<p>📍 ${guide.location}</p>
+<p>🗣 ${guide.language}</p>
+<p>💰 ${guide.price}</p>
+<p>⭐ ${guide.rating}</p>
+
+<a href="profile.html?id=${guide.id}"
+class="btn btn-view mb-2">
+View Profile
+</a>
+
+<button
+class="btn btn-success"
+onclick="checkLoginAndBook('${guide.name}')">
+Book Now
+</button>
+
+</div>
+</div>
+</div>
+`;
+
+});
+
+});
+}

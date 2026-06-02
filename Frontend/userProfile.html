@@ -140,8 +140,31 @@ bookingHTML += `
 <h5>${b.guideName}</h5>
 
 <p>Date: ${b.date}</p>
-
 <p>Time: ${b.time}</p>
+
+<p>
+Status:
+    <span class="badge ${
+    b.status === "Approved"
+    ? "bg-success"
+    : b.status === "Rejected"
+    ? "bg-danger"
+    : b.status === "Completed"
+    ? "bg-primary"
+    : "bg-warning"
+    }">
+    ${b.status || "Pending"}
+    </span>
+</p>
+
+
+<button
+class="btn btn-primary mt-2"
+onclick="giveReview('${b.guideName}')">
+
+Give Review
+
+</button>
 
 </div>
 
@@ -185,6 +208,43 @@ ${user.aadhaar || "Not Added"}
 
 
 // LOGOUT
+function giveReview(guideName){
+
+const rating =
+prompt("Rate guide (1-5)");
+
+const review =
+prompt(
+`Write review for ${guideName}`
+);
+
+if(!review) return;
+
+let reviews =
+JSON.parse(
+localStorage.getItem(
+"guideReviews"
+)
+) || [];
+
+reviews.push({
+
+guideName,
+review
+
+});
+
+localStorage.setItem(
+"guideReviews",
+JSON.stringify(reviews)
+);
+
+alert(
+"Review Submitted Successfully"
+);
+
+
+}
 function logout(){
 
 localStorage.removeItem(

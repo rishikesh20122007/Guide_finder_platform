@@ -88,36 +88,49 @@ async function confirmBooking(){
         return;
     }
 
-    try{
+try{
 
-        // API URL
-        const API_URL =
-        window.location.hostname === "127.0.0.1"
-        ? "http://localhost:5000"
-        : "https://guide-finder-platform.onrender.com";
+    // API URL
+    const API_URL =
+    window.location.hostname === "127.0.0.1"
+    ? "http://localhost:5000"
+    : "https://guide-finder-platform.onrender.com";
 
-        // Send booking request
-        const response =
-        await fetch(
-        `${API_URL}/book-guide`,{
+    // Get logged in user
+    const loggedUser =
+    JSON.parse(
+    localStorage.getItem(
+    "loggedInUser"
+    ));
 
-            method:"POST",
+    // Send booking request
+    const response =
+    await fetch(
+    `${API_URL}/book-guide`,{
 
-            headers:{
-                "Content-Type":
-                "application/json"
-            },
+        method:"POST",
 
-            body:JSON.stringify({
+        headers:{
+            "Content-Type":
+            "application/json"
+        },
 
-                touristName,
-                guideName,
-                date,
-                time
+        body:JSON.stringify({
 
-            })
+            touristName,
 
-        });
+            touristMobile:
+            loggedUser.mobile,
+
+            guideName,
+
+            date,
+
+            time
+        })
+
+    });
+
 
         const result =
         await response.json();
@@ -133,9 +146,21 @@ async function confirmBooking(){
 
             // Create booking object
             const bookingData = {
-                guideName: guideName,
-                date: date,
-                time: time
+
+                touristName:
+                touristName,
+
+                touristMobile:
+                loggedUser.mobile,
+
+                guideName:
+                guideName,
+
+                date:
+                date,
+
+                time:
+                time
             };
 
             // Get old bookings
