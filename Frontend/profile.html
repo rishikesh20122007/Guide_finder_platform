@@ -50,7 +50,29 @@
     <div class="mt-4">
         <h5>Details</h5>
         <p id="guideDetails"></p>
+        <h5>Guide Location</h5>
+
+            <iframe
+            width="100%"
+            height="300"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            src="https://maps.google.com/maps?q=Kolkata&t=&z=13&ie=UTF8&iwloc=&output=embed">
+            </iframe>
     </div>
+
+    <div class="mt-4">
+
+      <h5>Reviews</h5>
+
+      <div id="reviewSection">
+
+      No reviews yet
+
+      </div>
+
+      </div>
         <button class="btn btn-success mt-4"
         onclick="bookGuide()">
         Book Guide
@@ -82,8 +104,8 @@ placeholder="Your Name">
 
 <select id="time" class="form-control mb-2">
     <option value="">Select Time</option>
-    <option value="06:00">10:00 AM</option>
-    <option value="08:00">10:00 AM</option>
+    <option value="06:00">06:00 AM</option>
+    <option value="08:00">08:00 AM</option>
     <option value="10:00">10:00 AM</option>
     <option value="11:00">11:00 AM</option>
     <option value="12:00">12:00 PM</option>
@@ -196,6 +218,42 @@ async function submitBooking() {
     });
 
     const result = await res.json();
+
+    let bookings =
+        JSON.parse(
+        localStorage.getItem(
+        "myBookings"
+        )
+        ) || [];
+
+        const loggedInUser =
+        JSON.parse(
+        localStorage.getItem(
+        "loggedInUser"
+        ));
+
+        bookings.push({
+
+        guideName: guide,
+
+        touristName:
+        loggedInUser.name,
+
+        touristMobile:
+        loggedInUser.mobile,
+
+        date,
+        time,
+
+        status:"Pending"
+
+        });
+
+        localStorage.setItem(
+        "myBookings",
+        JSON.stringify(bookings)
+        );
+
     alert(result.message);
     closeForm();
 
@@ -203,6 +261,63 @@ async function submitBooking() {
     alert("❌ Server error: " + error.message);
   }
 }
+
+function loadGuideReviews(){
+
+const guideName =
+document.getElementById(
+"guideName"
+).innerText;
+
+const reviews =
+JSON.parse(
+localStorage.getItem(
+"guideReviews"
+)
+) || [];
+
+const guideReviews =
+reviews.filter(
+r => r.guideName === guideName
+);
+
+const container =
+document.getElementById(
+"reviewSection"
+);
+
+if(guideReviews.length === 0){
+
+container.innerHTML =
+"No reviews yet";
+
+return;
+}
+
+container.innerHTML = "";
+
+guideReviews.forEach(r => {
+
+container.innerHTML += `
+<div class="card p-2 mb-2">
+
+⭐ ${r.rating || "Not Rated"}/5
+
+<br>
+
+${r.review}
+
+</div>
+`;
+
+});
+
+}
+
+setTimeout(
+loadGuideReviews,
+500
+);
 </script>
 
 </body>

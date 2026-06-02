@@ -51,17 +51,39 @@ mongoose.connect(process.env.MONGO_URI)
 // USER SCHEMA
 // =======================================
 
-            const UserSchema = new mongoose.Schema({
+ const UserSchema = new mongoose.Schema({
 
-                name:String,
-                email:String,
-                mobile:String,
-                password:String,
-                aadhaar:String,
-                role:String,
-                location:String
+    name:String,
+    email:String,
+    mobile:String,
+    password:String,
+    aadhaar:String,
+    role:String,
+    location:String,
 
-            });
+    languages:[String],
+
+    verified:{
+        type:Boolean,
+        default:false
+    },
+
+    experience:{
+        type:Number,
+        default:0
+    },
+
+    rating:{
+        type:Number,
+        default:0
+    },
+
+    totalReviews:{
+        type:Number,
+        default:0
+    }
+
+});
 
 const User = mongoose.model("User",UserSchema);
 
@@ -72,17 +94,19 @@ const User = mongoose.model("User",UserSchema);
 
 const BookingSchema = new mongoose.Schema({
 
+    guideId:String,
+
+    guideName:String,
+
     placeName:String,
 
     totalMembers:Number,
 
     members:[
-
         {
             name:String,
             whatsapp:String
         }
-
     ],
 
     date:String,
@@ -91,12 +115,64 @@ const BookingSchema = new mongoose.Schema({
 
     bookedBy:String,
 
+    amount:Number,
+
     status:{
         type:String,
+        enum:[
+            "Pending",
+            "Approved",
+            "Rejected",
+            "Completed"
+        ],
         default:"Pending"
     }
 
 });
+
+
+
+
+
+const ReviewSchema = new mongoose.Schema({
+
+    guideId:String,
+
+    touristName:String,
+
+    rating:Number,
+
+    review:String,
+
+    createdAt:{
+        type:Date,
+        default:Date.now
+    }
+
+});
+
+const Review =
+mongoose.model("Review",ReviewSchema);
+
+const NotificationSchema =
+new mongoose.Schema({
+
+    userId:String,
+
+    message:String,
+
+    isRead:{
+        type:Boolean,
+        default:false
+    }
+
+});
+
+const Notification =
+mongoose.model(
+"Notification",
+NotificationSchema
+);
 
 const Booking = mongoose.model("Booking",BookingSchema);
 // =======================================
@@ -120,6 +196,168 @@ mongoose.model(
 FeedbackSchema
 );
 
+app.post("/add-review",
+async(req,res)=>{
+
+try{
+
+const {
+guideId,
+touristName,
+rating,
+review
+} = req.body;
+
+const newReview =
+new Review({
+guideId,
+touristName,
+rating,
+review
+});
+
+await newReview.save();
+
+res.json({
+success:true
+});
+
+}
+
+catch(err){
+
+res.json({
+success:false
+});
+
+}
+
+});
+
+
+app.get("/reviews/:guideId",
+async(req,res)=>{
+
+const reviews =
+await Review.find({
+
+guideId:
+req.params.guideId
+
+});
+
+res.json(reviews);
+
+});
+
+
+app.put(
+"/booking/:id/approve",
+async(req,res)=>{
+
+await Booking.findByIdAndUpdate(
+
+req.params.id,
+
+{
+status:"Approved"
+}
+
+);
+
+res.json({
+success:true
+});
+
+});
+
+
+app.put(
+"/booking/:id/reject",
+async(req,res)=>{
+
+await Booking.findByIdAndUpdate(
+
+req.params.id,
+
+{
+status:"Rejected"
+}
+
+);
+
+res.json({
+success:true
+});
+
+});
+
+
+app.put(
+"/booking/:id/complete",
+async(req,res)=>{
+
+await Booking.findByIdAndUpdate(
+
+req.params.id,
+
+{
+status:"Completed"
+}
+
+);
+
+res.json({
+success:true
+});
+
+});
+
+
+app.get(
+"/guides/language/:language",
+
+async(req,res)=>{
+
+const guides =
+await User.find({
+
+role:"Guide",
+
+languages:
+req.params.language
+
+});
+
+res.json(guides);
+
+});
+
+
+app.put(
+"/verify-guide/:id",
+
+async(req,res)=>{
+
+await User.findByIdAndUpdate(
+
+req.params.id,
+
+{
+verified:true
+}
+
+);
+
+res.json({
+success:true
+});
+
+});
+
+
+
+
 
 // =======================================
 // HOME ROUTE
@@ -142,17 +380,16 @@ app.post("/register", async(req,res)=>{
 
         console.log(req.body);
 
-                const {
-
-                    name,
-                    email,
-                    mobile,
-                    password,
-                    aadhaar,
-                    role,
-                    location
-
-                } = req.body;
+        const {
+            name,
+            email,
+            mobile,
+            password,
+            aadhaar,
+            role,
+            location,
+            languages
+        } = req.body;
 
 
         // CHECK EXISTING USER
@@ -185,15 +422,14 @@ app.post("/register", async(req,res)=>{
         // CREATE USER
 
             const newUser = new User({
-
                 name,
                 email,
                 mobile,
                 password: hashedPassword,
                 aadhaar,
                 role,
-                location
-
+                location,
+                languages
             });
 
 
@@ -319,24 +555,29 @@ app.post("/book-guide", async(req,res)=>{
     try{
 
         const {
-
+            guideId,
+            guideName,
             placeName,
             totalMembers,
             members,
             date,
             time,
-            bookedBy
-
+            bookedBy,
+            amount
         } = req.body;
 
         const newBooking = new Booking({
 
+            guideId,
+            guideName,
+
             placeName,
             totalMembers,
             members,
             date,
             time,
-            bookedBy
+            bookedBy,
+            amount
 
         });
 

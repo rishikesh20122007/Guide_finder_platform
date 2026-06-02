@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Guide Dashboard</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f5f7fa;
+}
+
+.container{
+    width:80%;
+    margin:50px auto;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.2);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+Who Booked Me
+</h1>
+
+<div id="stats" style="display:flex;gap:20px;margin-bottom:20px;">
+    <div class="card">
+        <h3 id="totalBookings">0</h3>
+        <p>Total Bookings</p>
+    </div>
+
+    <div class="card">
+        <h3 id="pendingBookings">0</h3>
+        <p>Pending</p>
+    </div>
+
+    <div class="card">
+        <h3 id="completedBookings">0</h3>
+        <p>Completed</p>
+    </div>
+
+    <div class="card">
+    <h3 id="totalEarnings">₹0</h3>
+    <p>Total Earnings</p>
+</div>
+</div>
+
+<div id="bookingList">
+
+</div>
+
+</div>
+
+<script>
+
+function loadBookings(){
+
+const guide =
+JSON.parse(
+localStorage.getItem(
+"loggedInGuide"
+));
+
+const bookings =
+JSON.parse(
+localStorage.getItem(
+"myBookings"
+)) || [];
+
+const myBookings =
+bookings.filter(
+booking =>
+
+booking.guideName ===
+guide.name
+);
+
+document.getElementById(
+"totalBookings"
+).innerText =
+myBookings.length;
+
+document.getElementById(
+"pendingBookings"
+).innerText =
+myBookings.filter(
+b => !b.status ||
+b.status === "Pending"
+).length;
+
+document.getElementById(
+"completedBookings"
+).innerText =
+myBookings.filter(
+b => b.status === "Completed"
+).length;
+
+const earnings =
+myBookings
+.filter(
+b => b.status === "Completed"
+)
+.reduce(
+(sum,b) => sum + (b.price || 0),
+0
+);
+
+document.getElementById(
+"totalEarnings"
+).innerText =
+"₹" + earnings;
+
+const container =
+document.getElementById(
+"bookingList"
+);
+
+container.innerHTML = "";
+
+myBookings.forEach(
+booking => {
+
+container.innerHTML += `
+
+<div class="card">
+
+<h3>
+${booking.touristName}
+</h3>
+
+<p>
+📞 Mobile:
+${booking.touristMobile}
+</p>
+
+<p>📅 Date: ${booking.date}</p>
+
+<p>⏰ Time: ${booking.time}</p>
+
+<p>
+Status:
+<span style="
+padding:5px 10px;
+border-radius:5px;
+background:
+${booking.status === "Approved" ? "#28a745" :
+booking.status === "Rejected" ? "#dc3545" :
+booking.status === "Completed" ? "#007bff" :
+"#ffc107"};
+color:white;
+">
+${booking.status || "Pending"}
+</span>
+</p>
+
+<button
+onclick="approveBooking('${booking.date}','${booking.time}')">
+Approve
+</button>
+
+<button
+onclick="rejectBooking('${booking.date}','${booking.time}')">
+Reject
+</button>
+
+<button
+onclick="completeBooking('${booking.date}','${booking.time}')">
+Complete
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadBookings();
+
+function approveBooking(index){
+
+let bookings =
+JSON.parse(
+localStorage.getItem("myBookings")
+) || [];
+
+bookings[index].status =
+"Approved";
+
+localStorage.setItem(
+"myBookings",
+JSON.stringify(bookings)
+);
+
+loadBookings();
+}
+
+function rejectBooking(index){
+
+let bookings =
+JSON.parse(
+localStorage.getItem("myBookings")
+) || [];
+
+bookings[index].status =
+"Rejected";
+
+localStorage.setItem(
+"myBookings",
+JSON.stringify(bookings)
+);
+
+loadBookings();
+}
+
+function completeBooking(index){
+
+let bookings =
+JSON.parse(
+localStorage.getItem("myBookings")
+) || [];
+
+bookings[index].status =
+"Completed";
+
+localStorage.setItem(
+"myBookings",
+JSON.stringify(bookings)
+);
+
+loadBookings();
+}
+
+</script>
+
+</body>
+</html>

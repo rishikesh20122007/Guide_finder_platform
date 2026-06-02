@@ -376,9 +376,11 @@
           <p>📍 Kolkata</p>
           <p>⭐ 4.5</p>
           <button
-            class="btn btn-primary mt-2"
-            onclick="window.location.href='guides.html'">
-            Book Now
+          class="btn btn-primary mt-2"
+          onclick="window.location.href='guides.html'">
+
+          Book Now
+
           </button>
         </div>
       </div>
@@ -474,8 +476,21 @@ id="loginPassword"
 placeholder="Enter Password">
 
 <button onclick="loginUser()">
-Login
+Tourist Login
 </button>
+<br><br>
+
+
+<button
+onclick="guideLogin()"
+style="
+background:#28a745;
+margin-bottom:10px;">
+
+Guide Login
+
+</button>
+
 
 <p style="margin-top:15px;">
 Don't have an account?
@@ -524,6 +539,22 @@ placeholder="Enter Password">
 type="text"
 id="aadhaar"
 placeholder="Enter Aadhaar Number">
+
+<select id="role">
+
+<option value="">
+Select Role
+</option>
+
+<option value="Tourist">
+Tourist
+</option>
+
+<option value="Guide">
+Guide
+</option>
+
+</select>
 
 <button onclick="registerUser()">
 Register
