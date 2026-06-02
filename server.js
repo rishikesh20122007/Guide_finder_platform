@@ -62,6 +62,9 @@ mongoose.connect(process.env.MONGO_URI)
     location:String,
 
     languages:[String],
+    photo:String,
+    price:Number,
+    bio:String,
 
     verified:{
         type:Boolean,
@@ -394,7 +397,11 @@ app.post("/register", async(req,res)=>{
             aadhaar,
             role,
             location,
-            languages
+            languages,
+            price,
+            experience,
+            bio,
+            photo
         } = req.body;
 
 
@@ -427,16 +434,21 @@ app.post("/register", async(req,res)=>{
 
         // CREATE USER
 
-            const newUser = new User({
-                name,
-                email,
-                mobile,
-                password: hashedPassword,
-                aadhaar,
-                role,
-                location,
-                languages
-            });
+        const newUser = new User({
+            name,
+            email,
+            mobile,
+            password: hashedPassword,
+            aadhaar,
+            role,
+            location,
+            languages,
+
+            price,
+            experience,
+            bio,
+            photo
+        });
 
 
         // SAVE USER
